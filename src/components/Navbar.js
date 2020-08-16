@@ -17,7 +17,7 @@ const toggleCollapse = () => {
 const { isOpen } = state;
   return (
       
-    <MDBContainer>
+    
       <MDBNavbar color="default-color" dark expand="md">
         <MDBNavbarBrand>
           <strong className="white-text">Navbar</strong>
@@ -64,9 +64,9 @@ const { isOpen } = state;
                 <MDBDropdownToggle nav caret>
                   <MDBIcon icon="user" />
                 </MDBDropdownToggle>
-                <MDBDropdownMenu className="dropdown-default">
-                  <MDBDropdownItem href="#!">Action</MDBDropdownItem>
-                  <MDBDropdownItem href="#!">Another Action</MDBDropdownItem>
+                <MDBDropdownMenu className="dropdown-default"  right>
+                  <MDBDropdownItem href="#!">Profile</MDBDropdownItem>
+                 <Link to="/MyEvents"> <MDBDropdownItem href="/MyEvents">My Events</MDBDropdownItem></Link>
                   <MDBDropdownItem href="#!">Something else here</MDBDropdownItem>
                   <MDBDropdownItem href="#!">Something else here</MDBDropdownItem>
                 </MDBDropdownMenu>
@@ -75,7 +75,7 @@ const { isOpen } = state;
           </MDBNavbarNav>
         </MDBCollapse>
       </MDBNavbar>
-      </MDBContainer>
+      
    
     );
   }

@@ -3,13 +3,15 @@ import { useDispatch, useSelector } from "react-redux";
 import {  MDBRow, MDBCol, MDBContainer} from
 'mdbreact';
 
-import IntroGuest from "../../components/IntroGuest";
+
 
 //impoert APi
 import {getEventsAPi} from "../../../api/apiEvents"
-import SectionGuest2 from "../../components/SectionGuest2";
-import Footer from "../../../components/Footer";
-const HomeGuest =()=> {
+import IntroUser from "../../components/IntroUser";
+import SectionHomeUser2 from "../../components/SectionHomeUser2";
+import SectionHomeUser3 from "../../components/SectionHomeUser3";
+
+const HomeUser =()=> {
   
   const eventState = useSelector((state) => state.eventState);
   const dispatch = useDispatch();
@@ -17,17 +19,18 @@ const HomeGuest =()=> {
     dispatch(getEventsAPi());
    
   }, [dispatch]);
-console.log(eventState)
+
     return (
       <div>
         
-     <IntroGuest/>
-    <SectionGuest2/>
-    <Footer/>
+     <IntroUser/>
+     <SectionHomeUser2/>
+     <SectionHomeUser3/>
+
      
      </div>
     );
   }
 
 
-export default HomeGuest;
+export default HomeUser;

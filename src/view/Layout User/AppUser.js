@@ -6,11 +6,14 @@ import {  MDBRow, MDBCol, MDBContainer} from
 
 
 
-import HomeGuest from "./Section/HomeGuest";
 import { Switch,Route,Redirect } from "react-router-dom";
+
+import HomeUser from "./Section/HomeUser";
 import MoreInformation from "../components/MoreInformation";
 import BrowseAllEvents from "../components/BrowseAllEvents";
-const AppGuest =()=> {
+import MyEvents from "./Section/MyEvents";
+import CreateEvents from "../components/CreateEvents";
+const AppUser =()=> {
   
   
     return (
@@ -18,8 +21,10 @@ const AppGuest =()=> {
       <Switch> 
       <Route exact path="/" component={() => (<Redirect to='/Home' />)} />
       <Route path='/MoreInformation/:id' component={MoreInformation}/>
-      <Route path='/Home' component={HomeGuest} />
+      <Route path='/Home' component={HomeUser} />
       <Route path="/AllEvents" component={BrowseAllEvents}/>
+      <Route path="/MyEvents" component={MyEvents}/>
+      <Route path="/CreateEvents" component={CreateEvents}/>
      </Switch> 
      
      </div>
@@ -27,4 +32,4 @@ const AppGuest =()=> {
   }
 
 
-export default AppGuest;
+export default AppUser;
