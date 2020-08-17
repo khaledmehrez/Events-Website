@@ -5,7 +5,7 @@ import {
   MDBNavbarBrand,
   MDBInput,
   MDBContainer,
-  MDBBtn
+  MDBBtn,
 } from "mdbreact";
 import {
   MDBCard,
@@ -18,20 +18,55 @@ import {
   MDBIcon,
   MDBFormInline,
 } from "mdbreact";
+
 import { Link } from "react-router-dom";
+//import components
 import SelectWithSearch from "../../components/SelectWithSearch";
+
+
+import MapWrapped from "../../components/GooleMap";
 
 //import css
 
 //impoert APi
+import {PostEventsAPi} from "../../api/apiEvents"
+import Modal from "../../components/PopupModal";
+
+
+
 
 const CreateEvents = () => {
+  //state
   const [state, setState] = useState({
     toggle: true,
   });
+  const [stateData,setStateData]=useState({
+    Title:"",
+    Type:"",
+    Categorie:"",
+    location:"",
+    date:"",
+    payment:"",
+})
+//dispatch
+const dispatch =useDispatch()
+//get data from input
+function handlechange(event){
+  const { name, value } = event.target;
+  setStateData(prevState => ({ ...prevState, [name]: value }));
+  console.log(stateData)
+ 
+}
+//post new event
+function PostNewEvents(){
+dispatch(PostEventsAPi(stateData))
+}
+  //change input
   const toggleFunction = () => {
     setState((prevState) => ({ ...prevState, toggle: !state.toggle }));
   };
+  
+  //option passed to the select components
   const optionstype = [
     {
       text: "workshop",
@@ -99,6 +134,7 @@ const CreateEvents = () => {
           </MDBNavbarBrand>
         </Link>
       </MDBNavbar>
+      <Modal />
       <MDBContainer className="mt-5">
         <img
           src="https://image.freepik.com/free-vector/create-concept-illustration_114360-315.jpg"
@@ -108,53 +144,70 @@ const CreateEvents = () => {
         />
       </MDBContainer>
 
-      
-        <MDBCard
-          style={{ width: "80rem", marginLeft: "2.5%", marginTop: "-10%" }}
-        >
-          <MDBCardBody>
-              {state.toggle?
-              <div>
-            <p>ADD TITLE</p>
-            <MDBInput label="Large input" size="lg" /><br/><br/>
-            <p>WHAT IS YOUR EVENT TYPE</p>
-            <SelectWithSearch options={optionstype} /><br/><br/>
-            <p>WHAT IS YOUR EVENT CATEGORIE</p>
-            <SelectWithSearch options={optionscategorie} /><br/><br/>
-            <p>IS IT FREE OR NOT</p>
-            <MDBFormInline>
-              <MDBInput
-                label="1"
-                type="checkbox"
-                id="checkbox1"
-                containerClass="mr-5"
-              />
-              <MDBInput
-                label="2"
-                type="checkbox"
-                id="checkbox2"
-                containerClass="mr-5"
-              />
-              
-              
-            </MDBFormInline><br/><br/>
-            <p>Describe your event</p>
-            <MDBInput type="textarea" label="Material textarea" rows="5" /><br/><br/>
-            <MDBBtn color="primary" rounded onClick={toggleFunction}>
-        NEXT
-      </MDBBtn>
-            </div>
-            :
+     {state.toggle? (<MDBCard
+        style={{ width: "80rem", marginLeft: "2.5%", marginTop: "-10%" }}
+      >
+        <MDBCardBody>
+         
             <div>
-                <input type="date" id="birthday" name="birthday"/>
+              <p>ADD TITLE</p>
+              <MDBInput label="Large input" size="lg" name="Title" onChange={handlechange} />
+              <br />
+              <br />
+              <p>WHAT IS YOUR EVENT TYPE</p>
+              <SelectWithSearch options={optionstype} />
+              <br />
+              <br />
+              <p>WHAT IS YOUR EVENT CATEGORIE</p>
+              <SelectWithSearch options={optionscategorie} />
+              <br />
+              <br />
+              <p>IS IT FREE OR NOT</p>
+              <MDBFormInline>
+                <MDBInput
+                  label="1"
+                  type="checkbox"
+                  id="checkbox1"
+                  containerClass="mr-5"
+                />
+                <MDBInput
+                  label="2"
+                  type="checkbox"
+                  id="checkbox2"
+                  containerClass="mr-5"
+                />
+              </MDBFormInline>
+              <br />
+              <br />
+              <p>Describe your event</p>
+              <MDBInput type="textarea" label="Material textarea" rows="5" />
+              <br />
+              <br />
+              <input type="date" id="birthday" name="birthday" />
+              <input type="time" id="appt" name="appt" />
+              <MDBBtn color="primary" rounded onClick={toggleFunction}>
+                NEXT
+              </MDBBtn>
             </div>
-            }
-          </MDBCardBody>
-        </MDBCard>
-      
-        
-      
-     
+          
+        </MDBCardBody>
+      </MDBCard>):(
+      <div>
+        <div style={{ width: "100vw", height: "100vh" }}>
+     <MapWrapped
+     googleMapURL={`https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places&key=${
+      'AIzaSyBLVScCQd-jFxdXw36rq61F8y2a-CuMK8w'
+    }`}
+    loadingElement={<div style={{ height: `100%` }} />}
+    containerElement={<div style={{ height: `100%` }} />}
+    mapElement={<div style={{ height: `100%` }} />}
+     />
+     </div>
+      <MDBBtn color="primary" rounded onClick={()=>{PostNewEvents()}}>
+               Submit
+              </MDBBtn>
+              </div>
+      )}
     </div>
   );
 };

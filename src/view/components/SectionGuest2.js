@@ -26,7 +26,7 @@ console.log(eventState)
      <MDBContainer className="CardContainerGuest">
      <MDBRow>
      
-     {eventState.map(el=><SmallCard  DataSmallCard={el} link="/MoreInformation" />)}
+     {eventState.slice(0,6).map(el=><SmallCard  DataSmallCard={el} link="/MoreInformation" />)}
      
      </MDBRow>
      </MDBContainer>

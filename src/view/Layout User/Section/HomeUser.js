@@ -10,6 +10,7 @@ import {getEventsAPi} from "../../../api/apiEvents"
 import IntroUser from "../../components/IntroUser";
 import SectionHomeUser2 from "../../components/SectionHomeUser2";
 import SectionHomeUser3 from "../../components/SectionHomeUser3";
+import Footer from "../../../components/Footer";
 
 const HomeUser =()=> {
   
@@ -26,7 +27,7 @@ const HomeUser =()=> {
      <IntroUser/>
      <SectionHomeUser2/>
      <SectionHomeUser3/>
-
+    <Footer />
      
      </div>
     );

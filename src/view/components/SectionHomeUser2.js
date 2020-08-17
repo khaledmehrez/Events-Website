@@ -6,7 +6,7 @@ import {  MDBRow, MDBCol, MDBContainer,MDBBtn,MDBCarousel,MDBCarouselInner} from
 
 
 //import css
-
+import "./css/SectionHomeUser2.css"
 //impoert APi
 import {getEventsAPi} from "../../api/apiEvents"
 
@@ -25,14 +25,14 @@ const SectionHomeUser2 =()=> {
      
      
      <MDBContainer >
-     <h1>Events For You</h1>
+     <h1 id="titleSectionHomeUser2">Events For You</h1>
       <MDBCarousel activeItem={1} length={eventState.length-1} slide={true} showControls={true} showIndicators={true} multiItem>
         <MDBCarouselInner>
         
-          
+        <div className="carouselHomeUser">  
      {eventState.map((el,i)=><MultiCarousel  DataMultiCardCarousel={el} id={i} link="/MoreInformation" />)}
      
-            
+     </div>    
             
      </MDBCarouselInner>
       </MDBCarousel>
