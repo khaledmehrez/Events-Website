@@ -9,6 +9,7 @@ import IntroGuest from "../../components/IntroGuest";
 import {getEventsAPi} from "../../../api/apiEvents"
 import SectionGuest2 from "../../components/SectionGuest2";
 import Footer from "../../../components/Footer";
+import SignIn from "../../components/Sign-In";
 const HomeGuest =()=> {
   
   const eventState = useSelector((state) => state.eventState);
@@ -23,6 +24,7 @@ console.log(eventState)
         
      <IntroGuest/>
     <SectionGuest2/>
+    
     <Footer/>
      
      </div>

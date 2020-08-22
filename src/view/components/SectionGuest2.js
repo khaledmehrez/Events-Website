@@ -6,7 +6,7 @@ import {  MDBRow, MDBCol, MDBContainer,MDBBtn} from
 
 import SmallCard from "../../components/SmallCard";
 //import css
-import "./css/SectionGuest2.css"
+import "../../assests/css/SectionGuest2.css"
 //impoert APi
 import {getEventsAPi} from "../../api/apiEvents"
 import { Link } from "react-router-dom";

@@ -10,6 +10,7 @@ import HomeGuest from "./Section/HomeGuest";
 import { Switch,Route,Redirect } from "react-router-dom";
 import MoreInformation from "../components/MoreInformation";
 import BrowseAllEvents from "../components/BrowseAllEvents";
+import SignUp from "../components/SignUp";
 const AppGuest =()=> {
   
   
@@ -20,6 +21,7 @@ const AppGuest =()=> {
       <Route path='/MoreInformation/:id' component={MoreInformation}/>
       <Route path='/Home' component={HomeGuest} />
       <Route path="/AllEvents" component={BrowseAllEvents}/>
+      <Route path='/SignUp' component={SignUp} />
      </Switch> 
      
      </div>

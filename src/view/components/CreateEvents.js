@@ -34,7 +34,7 @@ import Modal from "../../components/PopupModal";
 
 
 
-
+var jwtDecode = require('jwt-decode');
 const CreateEvents = () => {
   //state
   const [state, setState] = useState({
@@ -47,6 +47,7 @@ const CreateEvents = () => {
     location:"",
     date:"",
     payment:"",
+    idUser:""
 })
 //dispatch
 const dispatch =useDispatch()
@@ -54,11 +55,31 @@ const dispatch =useDispatch()
 function handlechange(event){
   const { name, value } = event.target;
   setStateData(prevState => ({ ...prevState, [name]: value }));
-  console.log(stateData)
+ 
  
 }
+//get user id
+const[cookieState,setCookie]=useState({
+  cookieToken:""
+})
+
+useEffect(() => {
+  if(document.cookie!=="")
+  setCookie(prevState => ({ ...prevState, cookieToken: jwtDecode(document.cookie) }));
+  
+
+}, [dispatch]);
+const SaveId=()=>{
+if(cookieState.cookieToken.data!==undefined){
+  var id=cookieState.cookieToken.data._id
+  setStateData(prevState => ({ ...prevState, idUser: id }));
+  
+}
+}
+
 //post new event
 function PostNewEvents(){
+  
 dispatch(PostEventsAPi(stateData))
 }
   //change input
@@ -134,7 +155,7 @@ dispatch(PostEventsAPi(stateData))
           </MDBNavbarBrand>
         </Link>
       </MDBNavbar>
-      <Modal />
+      <Modal isOpen={true} />
       <MDBContainer className="mt-5">
         <img
           src="https://image.freepik.com/free-vector/create-concept-illustration_114360-315.jpg"
@@ -185,7 +206,7 @@ dispatch(PostEventsAPi(stateData))
               <br />
               <input type="date" id="birthday" name="birthday" />
               <input type="time" id="appt" name="appt" />
-              <MDBBtn color="primary" rounded onClick={toggleFunction}>
+              <MDBBtn color="primary" rounded onClick={()=>{toggleFunction();SaveId()}}>
                 NEXT
               </MDBBtn>
             </div>

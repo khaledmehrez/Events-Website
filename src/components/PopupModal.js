@@ -1,8 +1,8 @@
 import React, { Component, useState } from 'react';
 import { MDBContainer, MDBBtn, MDBModal, MDBModalBody, MDBModalHeader, MDBModalFooter } from 'mdbreact';
 
-const PopupModal =()=> {
-  const [open, setOpen] = React.useState(true);
+const PopupModal =(props)=> {
+  const [open, setOpen] = React.useState(props.isOpen);
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -16,7 +16,7 @@ const PopupModal =()=> {
   return (
       <MDBContainer>
        
-        <MDBModal isOpen={open}  centered>
+        <MDBModal isOpen={open}  centered >
           <MDBModalHeader>MDBModal title</MDBModalHeader>
           <MDBModalBody>
             Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore

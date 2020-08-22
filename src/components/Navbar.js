@@ -1,7 +1,7 @@
 import React, { Component,useState } from "react";
 import { MDBNavbar, MDBNavbarBrand, MDBNavbarNav, MDBNavItem, MDBNavLink, MDBNavbarToggler, MDBCollapse, MDBDropdown,
 MDBDropdownToggle, MDBDropdownMenu, MDBDropdownItem, MDBIcon, MDBContainer } from "mdbreact";
-import {  Link } from 'react-router-dom';
+import {  Link, BrowserRouter } from 'react-router-dom';
 
 const Navbar=()=>  {
     const [state,setState]=useState({
@@ -12,6 +12,11 @@ const Navbar=()=>  {
 const toggleCollapse = () => {
     setState(prevState => ({ ...prevState, isOpen: !isOpen }))
   
+}
+const deconection=()=>{
+  const cookie1=  document.cookie;  
+  document.cookie=cookie1+";max-age=0";  
+
 }
 
 const { isOpen } = state;
@@ -67,7 +72,7 @@ const { isOpen } = state;
                 <MDBDropdownMenu className="dropdown-default"  right>
                   <MDBDropdownItem href="#!">Profile</MDBDropdownItem>
                  <Link to="/MyEvents"> <MDBDropdownItem href="/MyEvents">My Events</MDBDropdownItem></Link>
-                  <MDBDropdownItem href="#!">Something else here</MDBDropdownItem>
+                  <MDBDropdownItem onClick={deconection}>Deconection</MDBDropdownItem>
                   <MDBDropdownItem href="#!">Something else here</MDBDropdownItem>
                 </MDBDropdownMenu>
               </MDBDropdown>

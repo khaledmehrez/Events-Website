@@ -1,6 +1,6 @@
 import React, { Component, useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { BrowserRouter as Router } from 'react-router-dom';
+import { BrowserRouter as Router, Link } from 'react-router-dom';
 import {
   MDBNavbar,
   MDBNavbarBrand,
@@ -19,7 +19,8 @@ import {
   MDBAnimation
 } from 'mdbreact';
 //import css
-import './css/IntroGuest.css';
+import "../../assests/css/IntroGuest.css"
+import SignIn from "./Sign-In";
 
 
 
@@ -55,7 +56,7 @@ const IntroGuest =()=> {
     );
     return (
       <div id='apppage'>
-        <Router>
+        
           <div>
             <MDBNavbar
               color='primary-color'
@@ -74,22 +75,24 @@ const IntroGuest =()=> {
                 <MDBCollapse isOpen={collapsed} navbar>
                   <MDBNavbarNav left>
                     <MDBNavItem active>
-                      <MDBNavLink to='#!'>Home</MDBNavLink>
+                      <MDBNavLink to='/Home'>Home</MDBNavLink>
                     </MDBNavItem>
                     
                   </MDBNavbarNav>
                   <MDBNavbarNav right>
                     <MDBNavItem>
-                      <MDBFormInline waves>
-                        <div className='md-form my-0'>
-                          <input
-                            className='form-control mr-sm-2'
-                            type='text'
-                            placeholder='Search'
-                            aria-label='Search'
-                          />
-                        </div>
-                      </MDBFormInline>
+                      
+                        
+                         <SignIn/>
+                       
+                     
+                    </MDBNavItem>
+                    <MDBNavItem>
+                      
+                        
+                   <Link to="/SignUp">  <MDBBtn color="primary" >MDBModal</MDBBtn></Link>
+                       
+                     
                     </MDBNavItem>
                   </MDBNavbarNav>
                 </MDBCollapse>
@@ -97,7 +100,7 @@ const IntroGuest =()=> {
             </MDBNavbar>
             {collapsed && overlay}
           </div>
-        </Router>
+        
         <MDBView>
           <MDBMask className='white-text gradient' />
           <MDBContainer

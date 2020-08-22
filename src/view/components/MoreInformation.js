@@ -1,12 +1,12 @@
 import React, { Component, useState, useEffect } from "react";
-import {  MDBRow, MDBCol, MDBCard, MDBCardBody, MDBMask, MDBIcon, MDBView } from "mdbreact";
+import {  MDBRow, MDBCol, MDBCard, MDBCardBody, MDBMask, MDBIcon, MDBView,MDBModal,MDBModalBody,MDBBtn } from "mdbreact";
 import Navbar from "../../components/Navbar";
 
 const MoreInformation = (props) => {
   const data=props.location.state.DataSmallCard
   return (
     
-      
+      <div>
    
     <MDBCard
         className="my-5 px-5 mx-auto"
@@ -31,6 +31,7 @@ const MoreInformation = (props) => {
                     className="img-fluid"
                     src="https://mdbootstrap.com/img/Photos/Slides/1.jpg"
                     alt=""
+                    
                   />
                   <a href="#!">
                     <MDBMask overlay="white-slight" className="waves-light" />
@@ -64,38 +65,9 @@ const MoreInformation = (props) => {
             <MDBCol md="12" lg="6">
               <div style={{
                 borderBottom: "1px solid #e0e0e0",
-                marginBottom: "1.5rem"
+                marginBottom: "18rem"
               }}>
-                <MDBRow>
-                  <MDBCol md="3">
-                    <MDBView hover rounded className="z-depth-1-half mb-4">
-                      <img
-                        className="img-fluid"
-                        src="https://mdbootstrap.com/img/Photos/Others/img%20(29).jpg"
-                        alt=""
-                      />
-                      <a href="#!">
-                        <MDBMask overlay="white-slight" className="waves-light" />
-                      </a>
-                    </MDBView>
-                  </MDBCol>
-                  <MDBCol md="9">
-                    <p className="font-weight-bold dark-grey-text">
-                      26/02/2018
-                    </p>
-                    <div className="d-flex justify-content-between">
-                      <MDBCol size="11" className="text-truncate pl-0 mb-3">
-                        <a href="#!" className="dark-grey-text">
-                          At vero eos et accusamus et iusto odio dignissimos
-                          ducimus qui blanditiis
-                        </a>
-                      </MDBCol>
-                      <a href="#!">
-                        <MDBIcon icon="angle-double-right" />
-                      </a>
-                    </div>
-                  </MDBCol>
-                </MDBRow>
+                
               </div>
 
               <div style={{
@@ -204,6 +176,15 @@ const MoreInformation = (props) => {
           </MDBRow>
         </MDBCardBody>
       </MDBCard>
+      <MDBModal isOpen={true} backdrop={false}  frame position="bottom">
+      <MDBModalBody className="text-center">
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore
+        magna aliqua.
+        
+        <MDBBtn color="primary">Save changes</MDBBtn>
+      </MDBModalBody>
+    </MDBModal>
+    </div>
       
   );
 }

@@ -11,10 +11,16 @@ import { Provider } from "react-redux";
 import { BrowserRouter } from 'react-router-dom';
 import registerServiceWorker from './registerServiceWorker';
 
-ReactDOM.render( <Provider store={store}>
+
+import { CookiesProvider } from 'react-cookie';
+
+ReactDOM.render(
+    <CookiesProvider>
+    <Provider store={store}>
     <BrowserRouter>
     <App />
     </BrowserRouter>
-    </Provider> , document.getElementById('root'));
+    </Provider>
+    </CookiesProvider> , document.getElementById('root'));
 
 registerServiceWorker();

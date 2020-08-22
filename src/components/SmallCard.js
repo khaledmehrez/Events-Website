@@ -1,9 +1,28 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { MDBBtn, MDBCard, MDBCardBody, MDBCardImage, MDBCardTitle, MDBCardText, MDBRow, MDBCol, MDBIcon } from
 'mdbreact';
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from 'react-router-dom';
+//import api
+import {deleteEventsApi} from "../api/apiEvents"
 
+
+var jwtDecode = require('jwt-decode');
 const SmallCard = (props) => {
+
+const dispatch=useDispatch()
+
+function deleteEvents(e){
+dispatch(deleteEventsApi(e.target.value))
+
+}
+
+
+
+
+
+
+
 
     const DataSmallCard=props.DataSmallCard
   return (
@@ -29,8 +48,16 @@ const SmallCard = (props) => {
             pathname:`/MoreInformation/${DataSmallCard._id}`,
             state:{DataSmallCard}
         }}>
-            <MDBBtn gradient="purple">Purple</MDBBtn>
+            <MDBBtn  gradient="purple">Purple</MDBBtn>
             </Link>
+
+
+           {DataSmallCard.iduser===props.idUser? <div>
+            <hr />
+            
+            <MDBBtn value={DataSmallCard._id}   onClick={deleteEvents} ><MDBIcon far icon="trash-alt" /></MDBBtn>
+            <MDBBtn rounded ><MDBIcon far icon="edit" /></MDBBtn>
+            </div>:null}
           </MDBCardBody>
         </MDBCard>
         </MDBCol>
