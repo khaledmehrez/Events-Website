@@ -1,0 +1,5 @@
+.signContainer{
+    display: grid;
+    grid-template-columns: auto  auto;
+    grid-gap: 5px;
+}

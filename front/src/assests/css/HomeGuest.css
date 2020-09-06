@@ -1,0 +1,15 @@
+
+
+.CardContaienrHomeGuest{
+    margin-top: 10%;
+}
+#filterEmpty{
+font-size: x-large;
+color: red;
+font-weight: bold;
+}
+
+@media only screen  and (max-width: 576px)  {
+    
+        
+  }

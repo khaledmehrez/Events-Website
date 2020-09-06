@@ -9,7 +9,7 @@ import { Link } from "react-router-dom";
 
 
 //import css
-
+import "../../../assests/css/GridSmallCardContainer.css"
 //impoert APi
 import {getEventsAPi} from "../../../api/apiEvents"
 import SmallCard from "../../../components/SmallCard";
@@ -35,11 +35,11 @@ const role=userState.role
      <div >
      <h1 > your IT Event </h1>
      <MDBContainer >
-     <MDBRow>
+     <div className="SmallCardContainer">
      
      {eventState.filter(el=>el.iduser===id).map(el=><SmallCard idUser={id}  DataSmallCard={el} link="/MoreInformation" />)}
+     </div>
      
-     </MDBRow>
      </MDBContainer>
      
      

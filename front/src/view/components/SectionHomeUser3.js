@@ -8,6 +8,7 @@ import SmallCard from "../../components/SmallCard";
 //import css
 import "../../assests/css/SectionHomeUser3.css"
 import "../../assests/css/GridSmallCardContainer.css"
+
 //impoert APi
 import {getEventsAPi} from "../../api/apiEvents"
 import { Link } from "react-router-dom";
@@ -20,16 +21,16 @@ const SectionHomeUser3 =()=> {
     dispatch(getEventsAPi());
    
   }, [dispatch]);
-console.log(eventState)
+
     return (
       <div className="SectionHomeUser3">
      <h1 id="titleSEctionHomeUser3">Find yout IT Event Now</h1>
      <MDBContainer className="CardContainerGuest">
-     <MDBRow>
+     <div className="SmallCardContainer">
      
      {eventState.slice(0,6).map(el=><SmallCard  DataSmallCard={el} link="/MoreInformation" />)}
      
-     </MDBRow>
+    </div>
      </MDBContainer>
      <Link to="/AllEvents"> <MDBBtn style={{marginLeft:"52%"}} gradient="blue">Blue</MDBBtn> </Link>
      

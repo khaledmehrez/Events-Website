@@ -1,6 +1,7 @@
 const EventsModel = require('../model/EventsModel')
 const path = require('path')
 
+
 exports.getEvents = (async (req, res) => {
     const Eventsdata = await EventsModel.find()
     res.send(Eventsdata)
@@ -8,7 +9,9 @@ exports.getEvents = (async (req, res) => {
 });
 
 exports.postEvents = ((req, res) => {
+    console.log(req.body.Image)
     const Eventsdata = new EventsModel(
+       
         {
             title: req.body.Title,
             description:req.body.Description,
@@ -18,16 +21,18 @@ exports.postEvents = ((req, res) => {
             time:req.body.time,
             payement: req.body.Payement,
             location: req.body.Location,
-           
+            image:req.body.Image,
             iduser:req.body.idUser
 
             
         }
     );
-
+   
     Eventsdata.save().then(data => {
         res.json(data)
     })
+
+    
 
 });
 

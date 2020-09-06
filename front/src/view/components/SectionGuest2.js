@@ -1,6 +1,6 @@
 import React, { Component, useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import {  MDBRow, MDBCol, MDBContainer,MDBBtn} from
+import {  MDBRow, MDBCol, MDBContainer,MDBBtn, MDBCard, MDBAnimation} from
 'mdbreact';
 
 
@@ -22,17 +22,25 @@ const SectionGuest2 =()=> {
 
     return (
       <div className="SectionGuest2">
-     <h1 className="titleSectionGuest2">Find yout IT Event Now</h1>
+    
+
      <MDBContainer>
-     <div className="SmallCardContainer">
+     <MDBAnimation type="slideInLeft" duration="800ms" reveal>
+        <h1 id="titleSEctionAllEVENTS">All Events</h1>
+      </MDBAnimation>
+     <MDBCard>
+     <div className="SmallCardContainer sectionGuest2Card">
     
      
      {eventState.slice(0,6).map(el=><SmallCard  DataSmallCard={el} link="/MoreInformation" />)}
      
      </div>
-     </MDBContainer>
-     <Link to="/AllEvents"> <MDBBtn style={{marginLeft:"52%"}} gradient="blue">Blue</MDBBtn> </Link>
+     <Link to="/AllEvents"> <MDBBtn id="btnSectionAllEvents"  gradient="blue">Blue</MDBBtn> </Link>
+     </MDBCard>
      
+     </MDBContainer>
+     
+    
      </div>
 
     );

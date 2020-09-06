@@ -1,6 +1,6 @@
 import React, { Component, useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import {  MDBRow, MDBCol, MDBContainer,MDBBtn} from
+import {  MDBRow, MDBCol, MDBContainer,MDBBtn, MDBCard, MDBAnimation} from
 'mdbreact';
 
 
@@ -23,29 +23,43 @@ const SectionCommingSoonEvent =()=> {
   
   var today = new Date()
   if((today.getMonth() + 1)<10){
-    var thisday="0"+(today.getMonth() + 1)
+    var thismonth="0"+(today.getMonth() + 1)
   }
-  else var thisday=today.getMonth() + 1
+  else var thismonth=today.getMonth() + 1
 
+  if((today.getDate() )<10){
+    var thisday="0"+(today.getDate())
+  }
+  else var thisday=today.getDate()
 
-   var date = today.getFullYear() + '-' + thisday + '-' + today.getDate();
+   var date = today.getFullYear() + '-' + thismonth + '-' + thisday;
+console.log(date)
 
 
     return (
+
       <div className="SectionCommingSoon">
-     <h1 id="titleSEctionCommingSoon">what e have this day</h1>
-     <MDBContainer >
-       <div className="SmallCardContainer">
+       <MDBAnimation type="slideInLeft" duration="800ms" reveal>
+        <h1 id="titleSEctionCommingSoon">events this day</h1>
+      </MDBAnimation>
+      <MDBContainer  >
+      <MDBCard >
+      
+     
+       <div className="SmallCardContainer containerCardCommingSoon">
     
      
      {eventState.filter(el=>el.date===date).slice(0,3).map(el=><SmallCard  DataSmallCard={el} link="/MoreInformation" />)}
      
      </div>
      
-     <Link to="/AllEvents"> <MDBBtn style={{marginLeft:"52%"}} gradient="blue">See All</MDBBtn> </Link>
+     <Link to="/AllEvents"> <MDBBtn id="btnCommingSoon" gradient="blue">See All</MDBBtn> </Link>
+    
+   
+     </MDBCard>
      </MDBContainer>
+     <hr/>
      </div>
-
     );
   }
 

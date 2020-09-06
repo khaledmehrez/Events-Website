@@ -1,7 +1,24 @@
 const express = require('express');
-const ProductModel = require('../model/EventsModel.js')
+const EventsModel = require('../model/EventsModel.js')
 const { getEvents, postEvents,deleteEvents,patchEvents,addReservation} = require('../controllers/contEvents')
 const router = express.Router();
+
+
+const multer= require('multer')
+const storage = multer.diskStorage({
+    destination: function(req, file, cb) {
+      cb(null, './uploads/');
+    },
+    filename: function(req, file, cb) {
+      cb(null, new Date().toISOString() + file.originalname);
+    }
+  });
+
+  const upload = multer({
+    storage: storage,
+    
+  });
+
 
 
 router.get('/getEvents', getEvents)

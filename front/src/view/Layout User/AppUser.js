@@ -13,11 +13,12 @@ import MoreInformation from "../components/MoreInformation";
 import BrowseAllEvents from "../components/BrowseAllEvents";
 import MyEvents from "./Section/MyEvents";
 import CreateEvents from "../components/CreateEvents";
+import Profile from "../components/Profile";
 const AppUser =()=> {
   
   
     return (
-      <div>
+      <div >
       <Switch> 
       <Route exact path="/" component={() => (<Redirect to='/Home' />)} />
       <Route path='/MoreInformation/:id' component={MoreInformation}/>
@@ -25,6 +26,7 @@ const AppUser =()=> {
       <Route path="/AllEvents" component={BrowseAllEvents}/>
       <Route path="/MyEvents" component={MyEvents}/>
       <Route path="/CreateEvents" component={CreateEvents}/>
+      <Route path='/Profile/:id' component={Profile}/>
      </Switch> 
      
      </div>

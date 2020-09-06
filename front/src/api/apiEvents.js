@@ -15,7 +15,7 @@ export function getEventsAPi() {
     return () =>
     
       axios
-        .post("http://localhost:5000/Events/postEvents",data)
+        .post("http://localhost:5000/Events/postEvents",data).then((res) => console.log(res));
         
   }
 

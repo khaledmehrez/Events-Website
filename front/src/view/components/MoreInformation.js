@@ -13,44 +13,53 @@ import {
   MDBModalBody,
   MDBBtn,
   MDBInput,
+  MDBFormInline,
 } from "mdbreact";
-import Navbar from "../../components/Navbar";
+
 //api
-import { patchEventsToApi, getEventsAPi,addReservationApi } from "../../api/apiEvents";
-import {getUsersApi} from"../../api/apiUsers"
+import {
+  patchEventsToApi,
+  getEventsAPi,
+  addReservationApi,
+} from "../../api/apiEvents";
+import { getUsersApi } from "../../api/apiUsers";
+
+import "../../assests/css/MoreInformation.css"
 //components
 import SelectWithSearch from "../../components/SelectWithSearch";
-import Loader from "./Loader";
+import Loader from "../../components/Loader";
 import * as Constant from "./Constant";
 import SignIn from "./Sign-In";
 import ModalPage from "../../components/Modal";
-const MoreInformation = (props) => {
+import { Link } from "react-router-dom";
+import Navbar from "../../components/Navbar";
 
+
+const MoreInformation = (props) => {
   //dispatch
   const dispatch = useDispatch();
   //get user id
   const userState = useSelector((state) => state.userState);
   const id = userState._id;
+  //get event id
   const idEvent = props.location.pathname.replace("/MoreInformation/", "");
-  const userRole=userState.role
-  
+  //get user role
+  const userRole = userState.role;
+
   // get event data
   const eventState = useSelector((state) => state.eventState);
-  
+
   var dataEvent = eventState.filter((el) => el._id === idEvent)[0];
 
- 
   useEffect(() => {
     dispatch(getEventsAPi());
-   
   }, []);
-  
-// get all users
-const getusersState = useSelector((state) => state.getusersState);
-useEffect(() => {
-  dispatch(getUsersApi());
- 
-}, [])
+
+  // get all users
+  const getusersState = useSelector((state) => state.getusersState);
+  useEffect(() => {
+    dispatch(getUsersApi());
+  }, []);
 
   //const data = props.location.state.DataSmallCard;
   /*********************edit*****************/
@@ -87,7 +96,6 @@ useEffect(() => {
       ...prevState,
       ReservedPerson: dataEvent.ReservedPerson,
     }));
-    
   };
   //cancel edit
   const cancel = () => {
@@ -98,38 +106,31 @@ useEffect(() => {
   function handlechange(event) {
     const { name, value } = event.target;
     setStateData((prevState) => ({ ...prevState, [name]: value }));
-    
-    
   }
   //save edit
   const save = () => {
     dispatch(patchEventsToApi(stateData, dataEvent._id));
     SetToggleEdit((prevState) => ({ ...prevState, toggleEdit: false }));
-    
   };
-//Reserve
+  //Reserve
 
-const reserve=()=>{
-  const ReservedPerson=dataEvent.ReservedPerson
-  ReservedPerson.push(id)
-  
-  
-  dispatch(addReservationApi(ReservedPerson, dataEvent._id));
-  
-}
-let tab=[]
-//SHOW RESERVED PERSON
-const ShowReservedPerson=()=>{
-  
-  if(tab.length===0){
-  for(let i=0;i<dataEvent.ReservedPerson.length;i++){
-    
-   tab.push(getusersState.filter(el=>el._id===dataEvent.ReservedPerson[i]))
-    
-  }
-  }
- 
-}
+  const reserve = () => {
+    const ReservedPerson = dataEvent.ReservedPerson;
+    ReservedPerson.push(id);
+
+    dispatch(addReservationApi(ReservedPerson, dataEvent._id));
+  };
+  let tab = [];
+  //SHOW RESERVED PERSON
+  const ShowReservedPerson = () => {
+    if (tab.length === 0) {
+      for (let i = 0; i < dataEvent.ReservedPerson.length; i++) {
+        tab.push(
+          getusersState.filter((el) => el._id === dataEvent.ReservedPerson[i])
+        );
+      }
+    }
+  };
 
   return (
     <div>
@@ -138,7 +139,6 @@ const ShowReservedPerson=()=>{
         className="my-5 px-5 mx-auto"
         style={{ fontWeight: 300, maxWidth: "90%" }}
       >
-        
         <MDBCardBody style={{ paddingTop: 0 }}>
           <MDBRow>
             <MDBCol
@@ -147,12 +147,13 @@ const ShowReservedPerson=()=>{
               style={{ marginTop: "5%", marginLeft: "15%" }}
             >
               <MDBView hover rounded className="z-depth-1-half mb-4">
+              { dataEvent !== undefined ?
                 <img
                   className="img-fluid"
-                  src="https://image.freepik.com/free-vector/technology-conference-poster-template_1361-1211.jpg"
+                  src={`http://localhost:5000/${dataEvent.image}`}
                   alt=""
-                />
-                <a href="#!">
+                />:<Loader/>}
+                <a >
                   <MDBMask overlay="white-slight" className="waves-light" />
                 </a>
               </MDBView>
@@ -195,7 +196,7 @@ const ShowReservedPerson=()=>{
               {toggleEditState.toggleEdit === false ? (
                 dataEvent !== undefined ? (
                   <h3 className="font-weight-bold dark-grey-text mb-3 p-0">
-                    <a href="#!">{dataEvent.title}</a>
+                    <a>{dataEvent.title}</a>
                   </h3>
                 ) : (
                   <Loader />
@@ -206,8 +207,6 @@ const ShowReservedPerson=()=>{
                   name="Title"
                   onChange={handlechange}
                   value={stateData.Title}
-                 
-                  
                 />
               )}
             </MDBCol>
@@ -221,9 +220,10 @@ const ShowReservedPerson=()=>{
                   marginTop: "8rem",
                 }}
               >
+                <h1>About The Event</h1>
                 {toggleEditState.toggleEdit === false ? (
                   dataEvent !== undefined ? (
-                    <p className="dark-grey-text mb-lg-0 mb-md-5 mb-4">
+                    <p className=" text-justify dark-grey-text  mb-lg-0 mb-md-5 mb-4">
                       {dataEvent.description}
                     </p>
                   ) : (
@@ -348,7 +348,7 @@ const ShowReservedPerson=()=>{
                 <MDBRow>
                   <MDBCol md="3">
                     <MDBView hover rounded className="z-depth-1-half mb-4">
-                      <img
+                   <img
                         className="img-fluid"
                         src="https://image.freepik.com/free-photo/financial-concept-with-icon-wooden-cubes-calculator-turquoise-table-flat-lay_176474-9441.jpg"
                         alt=""
@@ -389,18 +389,33 @@ const ShowReservedPerson=()=>{
               </div>
             </MDBCol>
           </MDBRow>
-          
         </MDBCardBody>
       </MDBCard>
       <MDBModal isOpen={true} backdrop={false} frame position="bottom">
         <MDBModalBody className="text-center">
           Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
           eiusmod tempor incididunt ut labore et dolore magna aliqua.
-          {dataEvent !== undefined && dataEvent.iduser !== id && (userRole==="professionel"|| userRole==="particular") ? (
-            <MDBBtn  color="primary" onClick={reserve}>Reserve</MDBBtn>
+          {dataEvent !== undefined &&
+          dataEvent.iduser !== id &&
+          (userRole === "professionel" || userRole === "particular") ? (
+            <MDBBtn color="primary" onClick={reserve}>
+              Reserve
+            </MDBBtn>
           ) : null}
-            {dataEvent !== undefined && dataEvent.iduser !== id && userRole===undefined ? (
-            <SignIn/>
+          {dataEvent !== undefined &&
+          dataEvent.iduser !== id &&
+          userRole === undefined ? (
+            
+            <MDBFormInline>
+              <div style={{marginLeft:'40%'}}>
+              <SignIn />
+              </div>
+              
+              <Link to="/SignUp">
+                {" "}
+                <MDBBtn  color="cyan lighten-5" >Sign-up</MDBBtn>
+              </Link>
+              </MDBFormInline>
           ) : null}
           {dataEvent !== undefined &&
           dataEvent.iduser === id &&
@@ -418,9 +433,13 @@ const ShowReservedPerson=()=>{
             <MDBBtn onClick={cancel}>cancel</MDBBtn>
           ) : null}
         </MDBModalBody>
-       {dataEvent !== undefined &&
-          dataEvent.iduser === id ? <ModalPage modalMethod={ShowReservedPerson} fullHeightPosition={"right"} DataModal={tab}/>:null}
-       
+        {dataEvent !== undefined && dataEvent.iduser === id ? (
+          <ModalPage
+            modalMethod={ShowReservedPerson}
+            fullHeightPosition={"right"}
+            DataModal={tab}
+          />
+        ) : null}
       </MDBModal>
     </div>
   );

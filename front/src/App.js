@@ -16,18 +16,20 @@ const App =()=> {
   })
   const dispatch = useDispatch();
   useEffect(() => {
-    if(document.cookie!=="")
-    setCookie(prevState => ({ ...prevState, cookieToken: jwtDecode(document.cookie) }));
+    const token=sessionStorage.getItem('token')
     
+    if(token!==null)
+    setCookie(prevState => ({ ...prevState, cookieToken: jwtDecode(token) }));
+   
+  }, []);
   
-  }, [dispatch]);
   
   if(cookieState.cookieToken.data!==undefined){
     dispatch(storeUserAction(cookieState.cookieToken.data))
     var role=cookieState.cookieToken.data.role
   }
-  console.log(cookieState.cookieToken.data)
- 
+  
+
   
   if(role==="professionel"||role==="particular"){
     return (

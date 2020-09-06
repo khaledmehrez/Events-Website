@@ -1,59 +1,88 @@
 import React, { Component, useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import {  MDBRow, MDBCol, MDBContainer} from
-'mdbreact';
+import {  MDBAnimation, MDBContainer,MDBBtn, MDBIcon } from "mdbreact";
 
-import IntroGuest from "../../components/IntroGuest";
-import { Parallax, Background } from 'react-parallax';
+
+import { Parallax, Background } from "react-parallax";
 //impoert APi
-import {getEventsAPi} from "../../../api/apiEvents"
+import { getEventsAPi } from "../../../api/apiEvents";
+
+//import css
+import "../../../assests/css/HomeGuest.css";
+import "../../../assests/css/GridSmallCardContainer.css"
+//import components
 import SectionGuest2 from "../../components/SectionGuest2";
 import Footer from "../../../components/Footer";
-import SignIn from "../../components/Sign-In";
-import SectionCommingSoonEvent from "../../components/SectionCommingSoonEvent";
 
-const HomeGuest =()=> {
-  
+import SectionCommingSoonEvent from "../../components/SectionCommingSoonEvent";
+import IntroGuest from "../../components/IntroGuest";
+import SearchHome from "../../../components/SearchHome"
+import SmallCard from "../../../components/SmallCard";
+
+
+const HomeGuest = () => {
   const eventState = useSelector((state) => state.eventState);
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getEventsAPi());
-   
   }, [dispatch]);
+//get search data
+const  [StateSearch,setStateSearch]=useState({
+  Search:""
+})
+const [Statetoggle,setStatetoggle]=useState({
+  toggle:false
+})
+const handlechange=(e)=>{
+  const {value}=e.target
+  setStateSearch((prevState) => ({ ...prevState,Search: value }));
+}
+const handleclick=()=>{
+  setStatetoggle((prevState) => ({ ...prevState,toggle: !Statetoggle.toggle }));
+}
+if(Statetoggle.toggle===false){
+  return (
+    <div>
+      <IntroGuest />
+      <div className="">
+      <SearchHome handlechange={handlechange} handleclick={handleclick}/>
+      </div>
+      
 
-    return (
-      <div>
+      <SectionCommingSoonEvent />
 
-        
-     
-     <IntroGuest/>
-    
-     <Parallax
-     blur={1}
-     bgImage={require("../../../assests/picture/70.jpg")}
-     bgImageAlt="the cat"
-     strength={1200}
- >
- <SectionCommingSoonEvent  />
- </Parallax>
+      
+      <SectionGuest2 />
 
-        
-     
-     <Parallax
-     blur={1}
-     bgImage={require("../../../assests/picture/69.jpg")}
-     bgImageAlt="the cat"
-     strength={1000}
- >
-        <SectionGuest2/>
-        </Parallax>
+      <Footer />
+    </div>
+  );
+}
+else if(Statetoggle){
+  const filtredArray=eventState
+  .filter(
+    StateSearch.Search !== ""
+      ? (el) => el.title.includes(StateSearch.Search)
+      : (el) => el
+  )
+return(
+  <div>
+  <IntroGuest />
   
-    <Footer/>
- 
-     
-     </div>
-    );
-  }
-
+  <MDBContainer >
+    
+  <MDBBtn gradient="blue" onClick={handleclick}><MDBIcon icon="arrow-left" /></MDBBtn>
+  <div className="SmallCardContainer CardContaienrHomeGuest">
+    
+  {filtredArray.length>0?filtredArray.map(el=><SmallCard  DataSmallCard={el} link="/MoreInformation" />)
+:<p id="filterEmpty">Sorry there is no Events</p>  
+}
+    </div>
+    </MDBContainer>
+  
+  </div>
+)
+}
+};
 
 export default HomeGuest;

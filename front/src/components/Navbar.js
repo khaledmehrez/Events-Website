@@ -7,6 +7,7 @@ import SignIn from "../view/components/Sign-In";
 import SignUp from "../view/components/SignUp";
 
 const Navbar=()=>  {
+  
   //toggle
     const [state,setState]=useState({
         isOpen: false
@@ -19,9 +20,10 @@ const toggleCollapse = () => {
   
 }
 const deconection=()=>{
-  const cookie1=  document.cookie;  
-  document.cookie=cookie1+";max-age=0";  
   
+ // document.cookie=document.cookie+";max-age=0";  
+ sessionStorage.removeItem('token')
+ window.location.assign('http://localhost:3000/Home')
 }
 
 
@@ -29,7 +31,7 @@ const { isOpen } = state;
   return (
       
     
-      <MDBNavbar color="default-color" dark expand="md" scrolling >
+      <MDBNavbar color="blue darken-4" dark expand="md" scrolling >
         <MDBNavbarBrand>
           <strong className="white-text">Navbar</strong>
         </MDBNavbarBrand>
@@ -52,10 +54,15 @@ const { isOpen } = state;
                   <MDBIcon icon="user" />
                 </MDBDropdownToggle>
                 <MDBDropdownMenu className="dropdown-default"  right>
-                  <MDBDropdownItem href="#!">Profile</MDBDropdownItem>
-                 <Link to="/MyEvents"> <MDBDropdownItem href="/MyEvents">My Events</MDBDropdownItem></Link>
-                  <Link to= "/Home"><MDBDropdownItem onClick={deconection}>Deconection</MDBDropdownItem></Link>
-                  <MDBDropdownItem href="#!">Something else here</MDBDropdownItem>
+                <Link to ={{
+      pathname:`/Profile/${userState._id}`,
+      
+  }}>
+                  <MDBDropdownItem >Profile</MDBDropdownItem>
+                  </Link>
+                 <Link to="/MyEvents"> <MDBDropdownItem >My Events</MDBDropdownItem></Link>
+                 <MDBDropdownItem onClick={deconection}>Deconection</MDBDropdownItem>
+                 
                 </MDBDropdownMenu>
               </MDBDropdown>
             </MDBNavItem>
@@ -66,7 +73,7 @@ const { isOpen } = state;
             <SignIn/>
           </MDBNavItem>
            <MDBNavItem>
-            <Link to="/SignUp"><MDBBtn color="primary">Sign-Up</MDBBtn></Link>
+            <Link to="/SignUp"><MDBBtn color="cyan lighten-5">Sign-Up</MDBBtn></Link>
           </MDBNavItem>
           </MDBNavbarNav>
           

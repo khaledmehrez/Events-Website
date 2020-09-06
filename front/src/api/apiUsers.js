@@ -20,6 +20,7 @@ export const LoginApi = (data) => {
           if(res.data.token===undefined){
            alert(res.data)}
            else{
+               sessionStorage.setItem("token",res.data.token)
                window.location.reload()
            }
         })
@@ -27,7 +28,7 @@ export const LoginApi = (data) => {
     }
 
     //get all users
-    //get all events from api
+    
 export function getUsersApi() {
     return (dispatch) =>
       axios

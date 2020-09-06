@@ -23,69 +23,103 @@ import { Link } from "react-router-dom";
 //import components
 import SelectWithSearch from "../../components/SelectWithSearch";
 
-import * as Constant from "./Constant"
+import * as Constant from "./Constant";
 import MapWrapped from "../../components/GooleMap";
+import Modal from "../../components/PopupModal";
 
 //import css
 
 //impoert APi
-import {PostEventsAPi} from "../../api/apiEvents"
-import Modal from "../../components/PopupModal";
-
-
-
-var jwtDecode = require('jwt-decode');
+import { PostEventsAPi } from "../../api/apiEvents";
+import { getCategorieAPi, getTypeAPi } from "../../api/Categorie&typeaApi";
+import {UploadPictureAPi} from "../../api/apiUpload"
+import axios from "axios";
+var jwtDecode = require("jwt-decode");
 const CreateEvents = () => {
   //state
   const [state, setState] = useState({
     toggle: true,
   });
-  const [stateData,setStateData]=useState({
-    Title:"",
-    Type:"",
-    Categorie:"",
-    location:"",
-    date:"",
-    time:"",
-    Payement:"",
-    Description:"",
-    Location:"",
-    idUser:"",
-    ReservedPerson:[]
-})
-//dispatch
-const dispatch =useDispatch()
-//get data from input
-function handlechange(event){
-  const { name, value } = event.target;
-  setStateData(prevState => ({ ...prevState, [name]: value }));
+  const [stateData, setStateData] = useState({
+    Title: "",
+    Type: "",
+    Categorie: "",
+    location: "",
+    date: "",
+    time: "",
+    Payement: "",
+    Description: "",
+    Location: "",
+    idUser: "",
+    ReservedPerson: [],
+    Image:""
+    
+  });
+  const [statepicture, setStatepicture] = useState({
+    picture:""
+  }
+    
+  );
+  //dispatch
+  const dispatch = useDispatch();
+  //get data from input
+  function handlechange(event) {
+    const { name, value } = event.target;
+    setStateData((prevState) => ({ ...prevState, [name]: value }));
+  }
+  //get user id
+  const userState = useSelector((state) => state.userState);
+  const id = userState._id;
+
+  //save user id
+  const SaveId = () => {
+    setStateData((prevState) => ({ ...prevState, idUser: id }));
+  };
+
+  //post new event
+  function PostNewEvents() {
+   
+    dispatch(PostEventsAPi(stateData));
+  }
+  //upload picture
  
- 
-}
-//get user id
-const userState = useSelector((state) => state.userState);
-const id=userState._id
 
-//save user id
-const SaveId=()=>{
+  function handleOnSubmit(e) {
+    e.preventDefault();
+    const formData = new FormData();
+    formData.append("file", statepicture.picture);
+   
+    console.log(formData)
+    
 
-  setStateData(prevState => ({ ...prevState, idUser: id }));
+    axios
+      .post("http://localhost:5000/image", formData)
+      .then(res => console.log(res))
+      .catch(err => console.error(err));
+  };
   
-}
-
-
-//post new event
-function PostNewEvents(){
-  
-dispatch(PostEventsAPi(stateData))
-}
   //change input
   const toggleFunction = () => {
     setState((prevState) => ({ ...prevState, toggle: !state.toggle }));
   };
+
+  //get type and categorie
+  const CategorieState = useSelector((state) => state.CategorieState);
+  const TypeState = useSelector((state) => state.TypeState);
+
+  useEffect(() => {
+    dispatch(getCategorieAPi());
+    dispatch(getTypeAPi());
+  }, [dispatch]);
+//get picture
+const getPicture=(e)=>{
+  let img=e.target.files[0]
+  setStatepicture((prevState) => ({ ...prevState, picture:img }));
+  setStateData((prevState) => ({ ...prevState, Image:img.name }));
   
-  
-  
+}
+console.log(statepicture.picture)
+
   return (
     <div>
       <MDBNavbar color="unique-color-dark" style={{ marginTop: "20px" }} dark>
@@ -110,22 +144,36 @@ dispatch(PostEventsAPi(stateData))
         />
       </MDBContainer>
 
-     {state.toggle? (<MDBCard
-        style={{ width: "80rem", marginLeft: "2.5%", marginTop: "-10%" }}
-      >
-        <MDBCardBody>
-         
+      {state.toggle ? (
+        <MDBCard
+          style={{ width: "80rem", marginLeft: "2.5%", marginTop: "-10%" }}
+        >
+          <MDBCardBody>
+            
             <div>
               <p>ADD TITLE</p>
-              <MDBInput label="Large input" size="lg" name="Title" onChange={handlechange} />
+              <MDBInput
+                label="Large input"
+                size="lg"
+                name="Title"
+                onChange={handlechange}
+              />
               <br />
               <br />
               <p>WHAT IS YOUR EVENT TYPE</p>
-              <SelectWithSearch options={Constant.optionstype} handlechange={handlechange} name={"Type"} />
+              <SelectWithSearch
+                options={TypeState}
+                handlechange={handlechange}
+                name={"Type"}
+              />
               <br />
               <br />
               <p>WHAT IS YOUR EVENT CATEGORIE</p>
-              <SelectWithSearch options={Constant.optionscategorie} handlechange={handlechange} name={"Categorie"} />
+              <SelectWithSearch
+                options={CategorieState}
+                handlechange={handlechange}
+                name={"Categorie"}
+              />
               <br />
               <br />
               <p>IS IT FREE OR NOT</p>
@@ -138,7 +186,6 @@ dispatch(PostEventsAPi(stateData))
                   name="Payement"
                   value="free"
                   onChange={handlechange}
-
                 />
                 <MDBInput
                   label="no"
@@ -153,33 +200,69 @@ dispatch(PostEventsAPi(stateData))
               <br />
               <br />
               <p>Describe your event</p>
-              <MDBInput type="textarea" label="Material textarea" rows="5" name=" Description" onChange={handlechange}/>
+              <MDBInput
+                type="textarea"
+                label="Material textarea"
+                rows="5"
+                name="Description"
+                onChange={handlechange}
+              />
               <br />
               <br />
-              <input type="date" id="birthday" name="date" onChange={handlechange} />
-              <input type="time" id="appt" name="time" onChange={handlechange} />
-              <MDBBtn color="primary" rounded onClick={()=>{toggleFunction();SaveId()}}>
+              <input
+                type="date"
+                id="birthday"
+                name="date"
+                onChange={handlechange}
+              />
+              <input
+                type="time"
+                id="appt"
+                name="time"
+                onChange={handlechange}
+              />
+              <MDBBtn
+                color="primary"
+                rounded
+                onClick={() => {
+                  toggleFunction();
+                  SaveId();
+                }}
+              >
                 NEXT
               </MDBBtn>
             </div>
+          </MDBCardBody>
+        </MDBCard>
+      ) : (
+        <div>
           
-        </MDBCardBody>
-      </MDBCard>):(
-      <div>
-        <div style={{ width: "100vw", height: "100vh" }}>
-     <MapWrapped
-     googleMapURL={`https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places&key=${
-      'AIzaSyBLVScCQd-jFxdXw36rq61F8y2a-CuMK8w'
-    }`}
-    loadingElement={<div style={{ height: `100%` }} />}
-    containerElement={<div style={{ height: `100%` }} />}
-    mapElement={<div style={{ height: `100%` }} />}
-     />
-     </div>
-      <MDBBtn color="primary" rounded onClick={()=>{PostNewEvents()}}>
-               Submit
-              </MDBBtn>
-              </div>
+          <form   >
+  <input type="file" name="file"  onChange={getPicture} />
+  <button type="submit" class="btn" onClick={handleOnSubmit}>Submit</button>
+
+</form>
+            
+          
+          <div style={{ width: "100vw", height: "100vh" }}>
+            <MapWrapped
+              googleMapURL={`https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places&key=${"AIzaSyBLVScCQd-jFxdXw36rq61F8y2a-CuMK8w"}`}
+              loadingElement={<div style={{ height: `100%` }} />}
+              containerElement={<div style={{ height: `100%` }} />}
+              mapElement={<div style={{ height: `100%` }} />}
+            />
+          </div>
+          <MDBBtn
+            color="primary"
+            rounded
+            onClick={() => {
+              PostNewEvents();
+            }}
+          >
+            Submit
+          </MDBBtn>
+        </div>
+       
       )}
     </div>
   );

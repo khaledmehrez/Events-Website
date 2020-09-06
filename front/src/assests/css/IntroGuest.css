@@ -32,3 +32,11 @@
   #apppage h6 {
     line-height: 1.7;
   }
+
+  .IntroGuestTitle{
+    font-family: 'Teko', sans-serif;
+    text-transform: uppercase;
+    font-style: italic;
+    font-weight: 900;
+    font-size:5rem
+  }
