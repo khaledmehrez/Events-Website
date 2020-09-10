@@ -26,15 +26,17 @@ import SelectWithSearch from "../../components/SelectWithSearch";
 
 import MapWrapped from "../../components/GooleMap";
 
+
 //import css
 
 //impoert APi
 import { postUsersSignUpApi } from "../../api/apiUsers";
-import Modal from "../../components/PopupModal";
+import{getCategorieAPi,getTypeAPi} from "../../api/Categorie&typeaApi"
 
 //import picture
 import person from "../../assests/picture/person.jpg";
 import company from "../../assests/picture/company.jpg";
+import PopupModal from "../../components/PopupModal";
 
 const SignUp = () => {
   //state
@@ -50,6 +52,8 @@ const SignUp = () => {
     mail: "",
     password: "",
     adresse: "",
+    preference:[]
+   
   });
   //dispatch
   const dispatch = useDispatch();
@@ -73,14 +77,33 @@ const SignUp = () => {
   const toggleFunction = (e) => {
     setState((prevState) => ({ ...prevState, toggle: e.target.title }));
   };
- 
+  //get type and categorie
+  const CategorieState = useSelector((state) => state.CategorieState);
+  const TypeState = useSelector((state) => state.TypeState);
+
+  useEffect(() => {
+    dispatch(getCategorieAPi());
+    dispatch(getTypeAPi());
+  }, [dispatch]);
+
+ //SEt Prefernce
+
+ const setPrefernce=(e)=>{
+  setStateData((prevState) => ({ ...prevState, preference: [...
+    stateData.preference,e.target.title] }));
+  
+  
+  
+ }
+
+
 
   return (
     <div>
-      <Modal />
+      
 
       <h2 className="h1-responsive font-weight-bold text-center my-5">
-        Recent posts
+       Choose
       </h2>
       <p className="text-center w-responsive mx-auto mb-5">
         Duis aute irure dolor in reprehenderit in voluptate velit esse cillum
@@ -92,9 +115,9 @@ const SignUp = () => {
       <MDBCard style={{ width: "80rem", marginLeft: "2.5%" }}>
         <MDBCardBody>
           {state.toggle === "" ? (
-            <div>
+            <div style={{marginLeft:"34%"}}>
               <p>Are you</p>
-              <MDBFormInline>
+              <MDBFormInline > 
               <MDBBtn
                 gradient="blue"
                 size="lg"
@@ -190,7 +213,7 @@ const SignUp = () => {
                 onChange={handlechange}
               />
               <MDBInput label="adress" name="adresse" onChange={handlechange} />
-              <MDBBtn onClick={PostNewuser}>SUBMIT</MDBBtn>
+              <MDBBtn title="preference" onClick={toggleFunction} >Next</MDBBtn>
             </div>
           ) : null}
           {/*if it is a person*/}
@@ -218,9 +241,18 @@ const SignUp = () => {
                 name="adresse"
                 onChange={handlechange}
               />
-              <MDBBtn onClick={PostNewuser}>SUBMIT</MDBBtn>
+             <MDBBtn title="preference" onClick={toggleFunction} >Next</MDBBtn>
             </div>
           ) : null}
+          {
+           state.toggle === "preference"?
+           <div>
+             <p>Choose you Preference</p>
+             {CategorieState.map(el=><MDBBtn title={el.text} onClick={setPrefernce}>{el.text}</MDBBtn>)}
+             <PopupModal MethodePopup1={PostNewuser} PopUpTitle={"SignUp"} PopUpBody={"Are you sure"}/>
+           </div>
+           :null
+          }
         </MDBCardBody>
       </MDBCard>
     </div>

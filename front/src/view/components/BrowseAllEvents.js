@@ -54,6 +54,7 @@ const BrowseAllEvents = () => {
   useEffect(() => {
     dispatch(getCategorieAPi());
     dispatch(getTypeAPi());
+    window.scrollTo(0, 0)
   }, [dispatch]);
   //filter
   const [stateFilter, setStateFilter] = useState({
@@ -104,7 +105,7 @@ const BrowseAllEvents = () => {
         </MDBCol>
         <MDBCol>
           <h2 className="h1-responsive font-weight-bold text-center my-5">
-            Recent posts
+            Find Your Event
           </h2>
           <p className="text-center w-responsive mx-auto mb-5">
             Duis aute irure dolor in reprehenderit in voluptate velit esse

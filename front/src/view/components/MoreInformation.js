@@ -21,10 +21,11 @@ import {
   patchEventsToApi,
   getEventsAPi,
   addReservationApi,
+  deleteEventsApi,
 } from "../../api/apiEvents";
 import { getUsersApi } from "../../api/apiUsers";
 
-import "../../assests/css/MoreInformation.css"
+import "../../assests/css/MoreInformation.css";
 //components
 import SelectWithSearch from "../../components/SelectWithSearch";
 import Loader from "../../components/Loader";
@@ -33,7 +34,7 @@ import SignIn from "./Sign-In";
 import ModalPage from "../../components/Modal";
 import { Link } from "react-router-dom";
 import Navbar from "../../components/Navbar";
-
+import PopupModal from "../../components/PopupModal";
 
 const MoreInformation = (props) => {
   //dispatch
@@ -53,6 +54,7 @@ const MoreInformation = (props) => {
 
   useEffect(() => {
     dispatch(getEventsAPi());
+    window.scrollTo(0, 0);
   }, []);
 
   // get all users
@@ -119,6 +121,7 @@ const MoreInformation = (props) => {
     ReservedPerson.push(id);
 
     dispatch(addReservationApi(ReservedPerson, dataEvent._id));
+    window.location.reload()
   };
   let tab = [];
   //SHOW RESERVED PERSON
@@ -130,7 +133,34 @@ const MoreInformation = (props) => {
         );
       }
     }
+    
   };
+  //cancel reservation
+  if (dataEvent !== undefined) {
+    const didHeReserved = dataEvent.ReservedPerson.filter((el) => el === id);
+  }
+  //Cancel reservation from the participant
+const CancelReservation=()=>{
+    const DeleteReservation =dataEvent.ReservedPerson.filter(el=>el!==id)
+    dispatch(addReservationApi(DeleteReservation, dataEvent._id));
+    window.location.reload()
+}
+//Cancel Reservation from the organizer
+const CancelReservationOrganizer=(idReservation)=>{
+  const DeleteReservationOrganizer =dataEvent.ReservedPerson.filter(el=>el!==idReservation)
+  dispatch(addReservationApi(DeleteReservationOrganizer, dataEvent._id));
+  window.location.reload()
+}
+  //delete event
+
+  function deleteEvents() {
+    dispatch(deleteEventsApi(dataEvent._id));
+    window.location.assign("http://localhost:3000/MyEvents");
+  }
+  let didHeReserved;
+  if (dataEvent !== undefined) {
+    didHeReserved = dataEvent.ReservedPerson.filter((el) => el === id);
+  }
 
   return (
     <div>
@@ -147,13 +177,16 @@ const MoreInformation = (props) => {
               style={{ marginTop: "5%", marginLeft: "15%" }}
             >
               <MDBView hover rounded className="z-depth-1-half mb-4">
-              { dataEvent !== undefined ?
-                <img
-                  className="img-fluid"
-                  src={`http://localhost:5000/${dataEvent.image}`}
-                  alt=""
-                />:<Loader/>}
-                <a >
+                {dataEvent !== undefined ? (
+                  <img
+                    className="img-fluid"
+                    src={`http://localhost:5000/${dataEvent.image}`}
+                    alt=""
+                  />
+                ) : (
+                  <Loader />
+                )}
+                <a>
                   <MDBMask overlay="white-slight" className="waves-light" />
                 </a>
               </MDBView>
@@ -348,7 +381,7 @@ const MoreInformation = (props) => {
                 <MDBRow>
                   <MDBCol md="3">
                     <MDBView hover rounded className="z-depth-1-half mb-4">
-                   <img
+                      <img
                         className="img-fluid"
                         src="https://image.freepik.com/free-photo/financial-concept-with-icon-wooden-cubes-calculator-turquoise-table-flat-lay_176474-9441.jpg"
                         alt=""
@@ -384,6 +417,18 @@ const MoreInformation = (props) => {
                         </a>
                       </MDBCol>
                     </div>
+                    {dataEvent !== undefined && dataEvent.iduser === id ? (
+                      <div className="modalReserved">
+                        <ModalPage
+                          modalMethod={ShowReservedPerson}
+                          modalMethod2={CancelReservationOrganizer}
+                          fullHeightPosition={"right"}
+                          DataModal={tab}
+                          modalBtnTitle={"Show who reserved "}
+
+                        />
+                      </div>
+                    ) : null}
                   </MDBCol>
                 </MDBRow>
               </div>
@@ -391,55 +436,79 @@ const MoreInformation = (props) => {
           </MDBRow>
         </MDBCardBody>
       </MDBCard>
-      <MDBModal isOpen={true} backdrop={false} frame position="bottom">
+      <MDBBtn>CLOSE</MDBBtn>
+      <MDBModal
+        isOpen={true}
+        backdrop={false}
+        size="fluid"
+        frame
+        position="bottom"
+      >
         <MDBModalBody className="text-center">
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
-          eiusmod tempor incididunt ut labore et dolore magna aliqua.
           {dataEvent !== undefined &&
           dataEvent.iduser !== id &&
+          didHeReserved.length === 0 &&
           (userRole === "professionel" || userRole === "particular") ? (
-            <MDBBtn color="primary" onClick={reserve}>
-              Reserve
-            </MDBBtn>
+            <PopupModal
+              MethodePopup1={reserve}
+              PopUpTitle={"Reserve"}
+              PopUpBody={"Are you sure"}
+            ></PopupModal>
           ) : null}
           {dataEvent !== undefined &&
           dataEvent.iduser !== id &&
+          didHeReserved.length > 0 &&
+          (userRole === "professionel" || userRole === "particular") ? (
+            <PopupModal
+            MethodePopup1={CancelReservation}
+              PopUpTitle={"Cancel"}
+              PopUpBody={"Are you sure"}
+            ></PopupModal>
+          ) : null}
+
+          {dataEvent !== undefined &&
+          dataEvent.iduser !== id &&
           userRole === undefined ? (
-            
             <MDBFormInline>
-              <div style={{marginLeft:'40%'}}>
-              <SignIn />
+              <div style={{ marginLeft: "40%" }}>
+                <SignIn />
               </div>
-              
+
               <Link to="/SignUp">
                 {" "}
-                <MDBBtn  color="cyan lighten-5" >Sign-up</MDBBtn>
+                <MDBBtn color="light-blue lighten-1">Sign-up</MDBBtn>
               </Link>
-              </MDBFormInline>
+            </MDBFormInline>
           ) : null}
           {dataEvent !== undefined &&
           dataEvent.iduser === id &&
           toggleEditState.toggleEdit === false ? (
-            <MDBBtn onClick={toggleEditInput}>edit</MDBBtn>
+            <MDBBtn color="green lighten-4" onClick={toggleEditInput}>
+              edit
+            </MDBBtn>
+          ) : null}
+          {dataEvent !== undefined &&
+          dataEvent.iduser === id &&
+          toggleEditState.toggleEdit === false ? (
+            <MDBBtn color="red accent-1" onClick={deleteEvents}>
+              X
+            </MDBBtn>
           ) : null}
           {dataEvent !== undefined &&
           dataEvent.iduser === id &&
           toggleEditState.toggleEdit === true ? (
-            <MDBBtn onClick={save}>save</MDBBtn>
+            <MDBBtn color="green lighten-4" onClick={save}>
+              save
+            </MDBBtn>
           ) : null}
           {dataEvent !== undefined &&
           dataEvent.iduser === id &&
           toggleEditState.toggleEdit === true ? (
-            <MDBBtn onClick={cancel}>cancel</MDBBtn>
+            <MDBBtn color="green lighten-4" onClick={cancel}>
+              cancel
+            </MDBBtn>
           ) : null}
         </MDBModalBody>
-        {dataEvent !== undefined && dataEvent.iduser === id ? (
-          <ModalPage
-            modalMethod={ShowReservedPerson}
-            fullHeightPosition={"right"}
-            DataModal={tab}
-          />
-        ) : null}
       </MDBModal>
     </div>
   );

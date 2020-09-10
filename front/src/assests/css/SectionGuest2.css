@@ -1,5 +1,6 @@
 .SectionGuest2 {
   margin-top: 10%;
+  
 }
 .CardContainerGuest {
   position: relative;
@@ -30,15 +31,15 @@
   padding: 2%;
 }
 #titleSEctionAllEVENTS {
-  margin-top: 30%;
-  margin-bottom: 5%;
+  margin-top: 10%;
+  
 
   color: #ffc93c;
   font-family: "Teko", sans-serif;
   text-transform: uppercase;
   font-style: italic;
   font-weight: 900;
-  font-size: 3rem;
+  font-size: 2rem;
   line-height: 4rem;
 }
 

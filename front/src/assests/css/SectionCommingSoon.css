@@ -10,15 +10,15 @@
 }
 
 #titleSEctionCommingSoon{
-    margin-top:5%;
+  
     margin-left:10%;
-    margin-bottom:5%;
+  
     color:#ffc93c;
     font-family: 'Teko', sans-serif;
         text-transform: uppercase;
         font-style: italic;
         font-weight: 900;
-        font-size:   3rem;
+        font-size:   2rem;
         line-height: 4rem;
     }
 
@@ -30,7 +30,7 @@
 }
 #btnCommingSoon{
     margin-left:46%;
-    margin-top:5%
+    margin-top:2%
 }
 @media only screen and (max-width: 1200px)  {
     #btnCommingSoon{

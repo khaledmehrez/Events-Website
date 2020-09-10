@@ -1,15 +1,10 @@
-.shadow-box-example {
-    height: 120px;
-    width: 100%;
-    background-color: #bebebe62;
-   
-  }
+
 
   .SmallCard{
-      border-radius: 50px;
+      border-radius: 5px;
   }
   .SmallCardImg{
-    border-radius: 50px;
+    border-radius: 5px 5px 0px 0px;
   }
   .CardTitle{
     height:20%;

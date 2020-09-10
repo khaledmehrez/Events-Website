@@ -11,7 +11,7 @@ import { getEventsAPi } from "../../../api/apiEvents";
 import "../../../assests/css/HomeGuest.css";
 import "../../../assests/css/GridSmallCardContainer.css"
 //import components
-import SectionGuest2 from "../../components/SectionGuest2";
+import AllEvents from "../../components/AllEvents";
 import Footer from "../../../components/Footer";
 
 import SectionCommingSoonEvent from "../../components/SectionCommingSoonEvent";
@@ -45,14 +45,16 @@ if(Statetoggle.toggle===false){
     <div>
       <IntroGuest />
       <div className="">
+        <MDBContainer>
       <SearchHome handlechange={handlechange} handleclick={handleclick}/>
+      </MDBContainer>
       </div>
       
 
       <SectionCommingSoonEvent />
-
       
-      <SectionGuest2 />
+      <AllEvents/>
+      
 
       <Footer />
     </div>
@@ -70,7 +72,7 @@ return(
   <IntroGuest />
   
   <MDBContainer >
-    
+  
   <MDBBtn gradient="blue" onClick={handleclick}><MDBIcon icon="arrow-left" /></MDBBtn>
   <div className="SmallCardContainer CardContaienrHomeGuest">
     

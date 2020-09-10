@@ -15,15 +15,15 @@ const PopupModal =(props)=> {
 
   return (
       <MDBContainer>
-       
+       <MDBBtn color="light-blue lighten-1" onClick={handleClickOpen}>{props.PopUpTitle}</MDBBtn>
         <MDBModal isOpen={open}  centered >
-          <MDBModalHeader>MDBModal title</MDBModalHeader>
+          <MDBModalHeader  ></MDBModalHeader>
           <MDBModalBody>
-            {props.body}
+            {props.PopUpBody}
           </MDBModalBody>
           <MDBModalFooter>
             <MDBBtn color="secondary" onClick={handleClose}>Close</MDBBtn>
-            <MDBBtn color="primary">Save changes</MDBBtn>
+            <MDBBtn color="primary" onClick={()=>{props.MethodePopup1(props.IdToCancel);handleClose()}}>ok</MDBBtn>
           </MDBModalFooter>
         </MDBModal>
       </MDBContainer>

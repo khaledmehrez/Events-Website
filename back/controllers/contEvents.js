@@ -63,7 +63,8 @@ exports.patchEvents=(async (req,res)=>{
     res.send(JSON.stringify(Eventsdata))
 });
 
-
+//Reservation
+//add reservation
 exports.addReservation=(async (req,res)=>{
     console.log(req.body)
     const Eventsdata = await EventsModel.findOneAndUpdate({_id:req.params.postId}, {$set: { 
@@ -74,3 +75,4 @@ exports.addReservation=(async (req,res)=>{
 
     res.send(JSON.stringify(Eventsdata))
 });
+//cancel reservation

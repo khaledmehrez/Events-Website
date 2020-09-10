@@ -1,0 +1,12 @@
+.titleHome {
+    margin-top: 30%;
+    margin-bottom: 5%;
+  
+    color: #ffc93c;
+    font-family: "Teko", sans-serif;
+    text-transform: uppercase;
+    font-style: italic;
+    font-weight: 900;
+    font-size: 3rem;
+    line-height: 4rem;
+  }

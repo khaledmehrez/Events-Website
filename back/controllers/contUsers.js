@@ -9,6 +9,7 @@ exports.getUsers =(async(req,res)=>{
 });
 
 exports.postUsers =( (req,res)=>{
+    console.log(req.body)
 
     bcrypt.genSalt( (err, salt) => {
         bcrypt.hash(req.body.password, salt, (err, hash) => {
@@ -17,12 +18,14 @@ exports.postUsers =( (req,res)=>{
                 
                 {role:req.body.role,
                     type:req.body.type,
-                    socialraion:req.body.socialRaison,
+                    socialraison:req.body.socialReason,
                     firstname:req.body.firstName ,
+                    lastname: req.body.lastName,
                     password:hash,
                     mail:req.body.mail,
-                    
-                    lastname: req.body.lastName,
+                    adress:req.body.adresse,
+                    pre:req.body.preference
+                   
                     
         
                 }
@@ -78,3 +81,28 @@ exports.postLogin= (async (req,res)=>{
 
 })
 
+exports.deleteUsers= (async (req, res) => {
+    const userdata = await usersModel.findOneAndDelete({_id:req.params.postId})
+    res.send(JSON.stringify(userdata))
+});
+
+
+
+exports.patchUsers=(async (req,res)=>{
+    
+    const userdata = await usersModel.findOneAndUpdate({_id:req.params.postId}, {$set: { 
+        
+        role:req.body.role,
+        type:req.body.type,
+        socialraion:req.body.socialRaison,
+        firstname:req.body.firstName ,
+        password:req.body.password,
+        mail:req.body.mail,
+        
+        lastname: req.body.lastName,
+        preference:req.body.preference
+            
+    }})
+
+    res.send(JSON.stringify(userdata))
+});

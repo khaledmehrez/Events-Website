@@ -15,11 +15,6 @@ const SmallCard = (props) => {
 
 const dispatch=useDispatch()
 
-function deleteEvents(e){
-dispatch(deleteEventsApi(e.target.value))
-
-}
-
 
 
 
@@ -32,8 +27,8 @@ dispatch(deleteEventsApi(e.target.value))
     
    
     
-    <MDBAnimation reveal type="tada">
-        <MDBCard className="shadow-box-example z-depth-5 SmallCard" style={{ width: "20rem",height:"70vh" }}
+    <MDBAnimation reveal type="zoomIn">
+        <MDBCard className="shadow-box-example z-depth-2 SmallCard" style={{ width: "20rem",height:"56vh" }}
         border="blue"
        
         >
@@ -42,6 +37,7 @@ dispatch(deleteEventsApi(e.target.value))
       state:{DataSmallCard}
   }}>
           <MDBCardImage
+           className="img-fluid "
             className="img-fluid SmallCardImg"
             src={`http://localhost:5000/${DataSmallCard.image}`}
             waves
@@ -51,38 +47,40 @@ dispatch(deleteEventsApi(e.target.value))
           </Link>
           <MDBCardBody  className='text-center'>
           <p className="red-text CardTitle">{DataSmallCard.title}</p>
-          
-            
-            <MDBCardText>
-            <img src="https://mdbootstrap.com/img/Photos/Avatars/avatar-2.jpg" className="rounded-circle z-depth-0"
+         <MDBRow>
+           <MDBCol size="2">
+           <img src="https://mdbootstrap.com/img/Photos/Avatars/avatar-2.jpg" className="rounded-circle z-depth-0"
                     style={{ height: "35px", padding: 0,float:"left" }} alt="" />
              
-             
-            </MDBCardText>
-            <hr /><br/>
+            
+           </MDBCol>
+           <MDBCol size="10">
+
+           <hr /><br/>
+           </MDBCol>
+         </MDBRow>
+       
 
 
 
-
-           <p className="font-weight-bold deep-orange-text">
+          <MDBRow>
+            <MDBCol>
+         <p className="deep-orange-text">
                       <MDBIcon icon="tag" className="pr-2" />
                       {DataSmallCard.categorie}
                     </p>
-                  
-                    <p className="font-weight-bold deep-orange-text">
+                    </MDBCol>
+                    <MDBCol>
+                    <p className=" deep-orange-text">
                       <MDBIcon icon="tag" className="pr-2" />
                       {DataSmallCard.type}
                     </p>
-                    
-                    <p className="brown-text">{`Date:${DataSmallCard.date}`}</p>
+                    </MDBCol>
+                    </MDBRow>
+                    <strong className="brown-text">{`Date:${DataSmallCard.date} ${DataSmallCard.time}`}</strong>
 
 
-           {DataSmallCard.iduser===props.idUser? <div>
-            <hr />
-            
-            <MDBBtn value={DataSmallCard._id}   onClick={deleteEvents} ><MDBIcon far icon="trash-alt" /></MDBBtn>
-            <MDBBtn rounded ><MDBIcon far icon="edit" /></MDBBtn>
-            </div>:null}
+           
           </MDBCardBody>
         </MDBCard>
         </MDBAnimation>

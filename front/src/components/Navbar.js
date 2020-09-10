@@ -5,7 +5,8 @@ import {  Link, BrowserRouter } from 'react-router-dom';
 import { useSelector } from "react-redux";
 import SignIn from "../view/components/Sign-In";
 import SignUp from "../view/components/SignUp";
-
+//import picture
+import logo from "../assests/picture/logo.png"
 const Navbar=()=>  {
   
   //toggle
@@ -31,9 +32,12 @@ const { isOpen } = state;
   return (
       
     
-      <MDBNavbar color="blue darken-4" dark expand="md" scrolling >
+      <MDBNavbar color="grey lighten-4"   expand="md" scrolling style={{height:"10vh"}} >
         <MDBNavbarBrand>
-          <strong className="white-text">Navbar</strong>
+        <span>
+              <img src={logo}  alt="" width="80px" height="70px" />
+
+              </span>
         </MDBNavbarBrand>
         <MDBNavbarToggler onClick={toggleCollapse} />
         <MDBCollapse id="navbarCollapse3" isOpen={isOpen} navbar>
@@ -73,7 +77,7 @@ const { isOpen } = state;
             <SignIn/>
           </MDBNavItem>
            <MDBNavItem>
-            <Link to="/SignUp"><MDBBtn color="cyan lighten-5">Sign-Up</MDBBtn></Link>
+            <Link to="/SignUp"><MDBBtn color="light-blue lighten-1">Sign-Up</MDBBtn></Link>
           </MDBNavItem>
           </MDBNavbarNav>
           

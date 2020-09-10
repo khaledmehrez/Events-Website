@@ -6,12 +6,12 @@ const usersSchema=mongoose.Schema(
             type:{type:String},
             socialraison:{type:String},
 
-            firstName:{type:String} ,
+            firstname:{type:String} ,
             lastname:{type:String},
             password:{type:String},
             mail:{type:String},
-            
-            
+            pre:{type:Array},
+            adress:{type:String}
        
     }
 );

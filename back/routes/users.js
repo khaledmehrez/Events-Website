@@ -7,4 +7,7 @@ router.get('/getUsers',getUsers)
 router.post('/postUsers',postUsers)
 
 router.post('/login',postLogin)
+
+router.delete('/deleteUsers/:postId',deleteUsers)
+router.patch('/patchUsers/:postId',patchUsers)
 module.exports = router;

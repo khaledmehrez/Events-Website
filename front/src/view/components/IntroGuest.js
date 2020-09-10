@@ -22,7 +22,8 @@ import {
 import "../../assests/css/IntroGuest.css";
 import SignIn from "./Sign-In";
 import { Parallax, Background } from "react-parallax";
-
+//import picture 
+import logo from "../../assests/picture/logo.png"
 const IntroGuest = () => {
   const [state, setState] = useState({
     collapsed: false,
@@ -53,16 +54,21 @@ const IntroGuest = () => {
     <div id="apppage">
       <div>
         <MDBNavbar
-          color="primary-color"
-          dark
+          color="grey lighten-4"
+          
           expand="md"
           fixed="top"
           scrolling
           transparent
+          style={{height:"10vh"}}
         >
           <MDBContainer>
             <MDBNavbarBrand>
-              <strong className="white-text">Logo</strong>
+              <span>
+              <img src={logo}  className="img-fluid  hoverable" alt="" width="70px"  />
+
+              </span>
+              
             </MDBNavbarBrand>
             <MDBNavbarToggler onClick={handleTogglerClick} />
             <MDBCollapse isOpen={collapsed} navbar>
@@ -78,7 +84,7 @@ const IntroGuest = () => {
                 <MDBNavItem>
                   <Link to="/SignUp">
                     {" "}
-                    <MDBBtn color="cyan lighten-5">Sign-up</MDBBtn>
+                    <MDBBtn color="light-blue lighten-1">Sign-up</MDBBtn>
                   </Link>
                 </MDBNavItem>
               </MDBNavbarNav>

@@ -5,7 +5,7 @@ import {getUsersAction} from "../action/userAction"
 //Add new user
 export const postUsersSignUpApi = (data) => {
     // console.log(el)
-    
+    console.log(data)
     return () => {
         axios.post('http://localhost:5000/users/postUsers', data)
     }
@@ -34,4 +34,29 @@ export function getUsersApi() {
       axios
         .get("http://localhost:5000/Users/getUsers")
         .then((res) => dispatch(getUsersAction(res.data)));
+  }
+
+  //delete Events
+export function deleteUsersApi(i) {
+
+    return () => {
+      axios.delete(`http://localhost:5000/Users/deleteUsers/${i}`)
+      window.location.reload()
+    }
+  
+  }
+  
+  
+  export function patchUsersApi(data,id) {
+   
+   return () => {
+  
+      axios.patch(`http://localhost:5000/Users/patchUsers/${id}`,data ).then((res) =>
+        console.log(res.data),
+  
+   
+      );
+  
+    }
+  
   }
