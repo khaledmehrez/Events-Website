@@ -113,6 +113,7 @@ const MoreInformation = (props) => {
   const save = () => {
     dispatch(patchEventsToApi(stateData, dataEvent._id));
     SetToggleEdit((prevState) => ({ ...prevState, toggleEdit: false }));
+    window.location.reload()
   };
   //Reserve
 
@@ -164,7 +165,7 @@ const CancelReservationOrganizer=(idReservation)=>{
 
   return (
     <div>
-      <Navbar />
+      
       <MDBCard
         className="my-5 px-5 mx-auto"
         style={{ fontWeight: 300, maxWidth: "90%" }}
@@ -206,6 +207,7 @@ const CancelReservationOrganizer=(idReservation)=>{
                       options={Constant.optionstype}
                       name={"Type"}
                       handlechange={handlechange}
+                      TitleSelect={stateData.Type}
                     />
                   )}
                 </a>
@@ -223,6 +225,8 @@ const CancelReservationOrganizer=(idReservation)=>{
                     options={Constant.optionscategorie}
                     name={"Categorie"}
                     handlechange={handlechange}
+                    TitleSelect={stateData.Categorie}
+                   
                   />
                 )}
               </div>
@@ -263,10 +267,12 @@ const CancelReservationOrganizer=(idReservation)=>{
                     <Loader />
                   )
                 ) : (
-                  <MDBInput
+                  <textarea
+                  className="form-control"
                     label="Edit Description"
                     name="Description"
                     onChange={handlechange}
+                    value={stateData.Description}
                   />
                 )}
               </div>
@@ -317,6 +323,7 @@ const CancelReservationOrganizer=(idReservation)=>{
                         id="appt"
                         name="time"
                         onChange={handlechange}
+                        value={stateData.time}
                       />
                     )}
                     <div className="d-flex justify-content-between">
@@ -363,6 +370,7 @@ const CancelReservationOrganizer=(idReservation)=>{
                         id="appt"
                         name="date"
                         onChange={handlechange}
+                        value={stateData.date}
                       />
                     )}
                     <div className="d-flex justify-content-between">
@@ -408,6 +416,7 @@ const CancelReservationOrganizer=(idReservation)=>{
                         options={Constant.optionsPayement}
                         name={"Payement"}
                         handlechange={handlechange}
+                        TitleSelect={stateData.Payement}
                       />
                     )}
                     <div className="d-flex justify-content-between">
@@ -489,7 +498,7 @@ const CancelReservationOrganizer=(idReservation)=>{
           ) : null}
           {dataEvent !== undefined &&
           dataEvent.iduser === id &&
-          toggleEditState.toggleEdit === false ? (
+          toggleEditState.toggleEdit === false || userRole==="admin" ? (
             <MDBBtn color="red accent-1" onClick={deleteEvents}>
               X
             </MDBBtn>

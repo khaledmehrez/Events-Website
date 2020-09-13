@@ -1,14 +1,21 @@
 
+
 .searchFilter{
-   margin-top:50px;
+   margin-top:80px;
 }
 
 .filterType{
-   margin-top: 100PX;
+   margin-top: 50PX;
 }
 .filterCategorie{
-   margin-top: 100px;
+   margin-top: 50px;
+}
+.filterDate{
+   margin-top:50px
+}
+.filterTime{
+   margin-top:50px
 }
 .payementFilter{
-   margin-top:100px;
+   margin-top:20px;
 }

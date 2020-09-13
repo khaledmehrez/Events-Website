@@ -1,0 +1,10 @@
+.bodyMyEvents{
+    margin-top: 150px;
+}
+
+.containerMyEventsFirstSectionTitle{
+display: flex;
+justify-content: space-between;
+margin-bottom: 5%;
+}
+

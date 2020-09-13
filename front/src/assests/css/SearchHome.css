@@ -1,0 +1,17 @@
+.input-group.md-form.form-sm.form-1 input {
+    border: 1px solid #bdbdbd;
+    border-top-right-radius: 0.25rem;
+    border-bottom-right-radius: 0.25rem;
+    -webkit-box-shadow: 5px 5px 15px 5px #281FFF; 
+box-shadow: 5px 5px 15px 5px #281FFF;
+  }
+  
+  .InputSearch{
+color:yellow !important;
+height:8.5vh !important;
+margin-top: 5px !important;
+border-radius: 8px !important;
+  }
+  .btnSearcgHome{
+      border-radius: 8px !important;
+  }

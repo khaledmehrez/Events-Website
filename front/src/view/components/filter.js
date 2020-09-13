@@ -13,7 +13,7 @@ const Filter = (props) => {
     const dispatch=useDispatch()
   //STATE
   const [state,setState] =useState( {
-    radio: 2
+    radio: 1
   }
   )
  const  onClick = nr => () => {
@@ -31,7 +31,7 @@ const Filter = (props) => {
   }, [dispatch]);
 
   return (
-    <div className="container sticky-top">
+    <div className="containerFilter sticky-top">
        <div className="searchFilter">
       <MDBFormInline className="md-form  ">
         <MDBIcon icon="search" />
@@ -51,18 +51,36 @@ const Filter = (props) => {
       <div className="filterCategorie">
       <SelectWithSearch options={CategorieState} TitleSelect="search by Categorie" handlechange={props.handlechangeFilter} name="categorieFilter" className="" />
       </div>
+      <div className="filterDate">
+      <input
+                type="date"
+                id="birthday"
+                name="dateFilter"
+                onChange={props.handlechangeFilter}
+                className="form-control  "
+              />
+              </div>
+              <div className="filterTime">
+      <input
+                type="time"
+                id="birthday"
+                name="timeFilter"
+                onChange={props.handlechangeFilter}
+                className="form-control  "
+              />
+              </div>
       <div className="payementFilter">
 
 
-      <MDBFormInline>
+     
       <MDBInput onClick={onClick(1)} onChange={props.handlechangeFilter}  name="payementFilter" value="free" checked={state.radio===1 ? true : false} label="Free" type="radio"
-        id="radio1" />
+        id="radio1" /><br/>
       <MDBInput onClick={onClick(2)} onChange={props.handlechangeFilter} checked={state.radio===2 ? true : false}  name="payementFilter" value="paying" label="Paying" type="radio"
-        id="radio2" />
+        id="radio2" /><br/>
         <MDBInput onClick={onClick(3)} onChange={props.handlechangeFilter} checked={state.radio===3 ? true : false}  name="payementFilter" value="all" label="all" type="radio"
         id="radio3" />
      
-    </MDBFormInline>
+  
 
 
     

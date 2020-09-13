@@ -1,13 +1,13 @@
 import React, { Component, useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import {  MDBRow, MDBCol, MDBContainer,MDBBtn,MDBCarousel,MDBCarouselInner, MDBAnimation} from
+import {  MDBRow, MDBCol, MDBContainer,MDBBtn,MDBCarousel,MDBCarouselInner, MDBAnimation, MDBCard} from
 'mdbreact';
 
 
 
 //import css
-import "../../assests/css/SectionHomeUser2.css"
-import "../../assests/css/title.css"
+import "../../assests/css/SectionPrefferdEvents.css"
+
 //impoert APi
 import {getEventsAPi} from "../../api/apiEvents"
 import Carousel from "react-multi-carousel";
@@ -52,11 +52,15 @@ for(let i=0;i<userState.pre.length;i++){
   };
  
     return (
-      <div className="bodySectionHomeUser2" >
+     
+      <MDBContainer>
+        <div className="bodySectionHomeUser2" >
+         
+      
          <MDBAnimation type="slideInLeft" duration="800ms" reveal>
      <h1 id="titleSectionHomeUser2" className="titleHome h1-responsive">Suggested Events For You</h1>
      </MDBAnimation>
-     
+     <MDBCard>
      <Carousel
     swipeable={false}
     draggable={false}
@@ -81,14 +85,17 @@ for(let i=0;i<userState.pre.length;i++){
     {tabEventPreffered.map(el=><div><SmallCard  DataSmallCard={el} link="/MoreInformation" /></div>)}
    
   </Carousel>
-    
+  </MDBCard>
     <hr/>
     
      
      
      
+     
+     
      </div>
-
+     </MDBContainer>
+     
     );
   }
 

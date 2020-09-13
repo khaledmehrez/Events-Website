@@ -26,7 +26,7 @@ const HomeUser =()=> {
   }, [dispatch]);
 
     return (
-      <div>
+      <div style={{marginTop:"5%"}}>
       
      <IntroUser/>
      <SectionHomeUser2/>

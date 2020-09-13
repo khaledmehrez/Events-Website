@@ -9,6 +9,7 @@ import AppUser from "./view/Layout User/AppUser";
 
 //import actions
 import{storeUserAction} from "./action/userAction"
+import AppAdmin from "./view/Layout Admin/AppAdmin";
 var jwtDecode = require('jwt-decode');
 const App =()=> {
   const[cookieState,setCookie]=useState({
@@ -36,6 +37,13 @@ const App =()=> {
       <AppUser/>
       
     )}
+
+else if(role==="admin"){
+  return(
+    <AppAdmin/>
+  )
+}
+
     else{
     return(
       <AppGuest />

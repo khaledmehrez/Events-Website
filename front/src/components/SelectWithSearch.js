@@ -8,6 +8,7 @@ const SelectWithSearch =(props)=> {
         <div>
         <select className="browser-default custom-select" onChange={props.handlechange} name={props.name}>
         <option>{props.TitleSelect}</option>
+        <hr className="my-5"/>
             {props.options.map(el=><option value={el.text}>{el.text}</option>)}
           
           

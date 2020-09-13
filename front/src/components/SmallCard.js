@@ -28,7 +28,7 @@ const dispatch=useDispatch()
    
     
     <MDBAnimation reveal type="zoomIn">
-        <MDBCard className="shadow-box-example z-depth-2 SmallCard" style={{ width: "20rem",height:"56vh" }}
+        <MDBCard className="shadow-box-example z-depth-0 SmallCard" style={{ width: "20rem",height:"56vh" }}
         border="blue"
        
         >

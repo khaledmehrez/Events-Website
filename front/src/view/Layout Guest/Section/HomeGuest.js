@@ -39,6 +39,7 @@ const handlechange=(e)=>{
 }
 const handleclick=()=>{
   setStatetoggle((prevState) => ({ ...prevState,toggle: !Statetoggle.toggle }));
+  window.scrollTo(0, 500)
 }
 if(Statetoggle.toggle===false){
   return (
@@ -64,7 +65,7 @@ else if(Statetoggle){
   const filtredArray=eventState
   .filter(
     StateSearch.Search !== ""
-      ? (el) => el.title.includes(StateSearch.Search)
+      ? (el) => el.title.toLowerCase().includes(StateSearch.Search.toLowerCase())
       : (el) => el
   )
 return(

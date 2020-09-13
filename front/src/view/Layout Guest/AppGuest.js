@@ -11,11 +11,14 @@ import { Switch,Route,Redirect } from "react-router-dom";
 import MoreInformation from "../components/MoreInformation";
 import BrowseAllEvents from "../components/BrowseAllEvents";
 import SignUp from "../components/SignUp";
+import Navbar from "../../components/Navbar";
 const AppGuest =()=> {
   
   
     return (
       <div>
+        <Navbar/>
+        
       <Switch> 
       <Route exact path="/" component={() => (<Redirect to='/Home' />)} />
       <Route path='/MoreInformation/:id' component={MoreInformation}/>
@@ -23,7 +26,7 @@ const AppGuest =()=> {
       <Route path="/AllEvents" component={BrowseAllEvents}/>
       <Route path='/SignUp' component={SignUp} />
      </Switch> 
-     
+   
      </div>
     );
   }

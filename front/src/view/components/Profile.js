@@ -57,7 +57,7 @@ const SaveEdit=()=>{
 
   return (
     <div className="profile">
-      <Navbar />
+    
       <section className="profileContainer">
       <div className="leftSection block-example border-right border-light  p-3 ">
           <img

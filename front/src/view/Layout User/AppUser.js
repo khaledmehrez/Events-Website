@@ -14,11 +14,13 @@ import BrowseAllEvents from "../components/BrowseAllEvents";
 import MyEvents from "./Section/MyEvents";
 import CreateEvents from "../components/CreateEvents";
 import Profile from "../components/Profile";
+import Navbar from "../../components/Navbar";
 const AppUser =()=> {
   
   
     return (
       <div >
+        <Navbar parametre={false}/>
       <Switch> 
       <Route exact path="/" component={() => (<Redirect to='/Home' />)} />
       <Route path='/MoreInformation/:id' component={MoreInformation}/>

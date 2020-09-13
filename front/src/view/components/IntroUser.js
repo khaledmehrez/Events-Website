@@ -39,7 +39,7 @@ const IntroUser = () => {
   const { collapsed } = state;
   return (
     <div>
-      <Navbar />
+     
 
       <MDBCarousel
         activeItem={1}

@@ -5,9 +5,12 @@ import {getUsersAction} from "../action/userAction"
 //Add new user
 export const postUsersSignUpApi = (data) => {
     // console.log(el)
-    console.log(data)
+   
     return () => {
-        axios.post('http://localhost:5000/users/postUsers', data)
+        axios.post('http://localhost:5000/users/postUsers', data).then((res)=>{
+          sessionStorage.setItem("token",res.data.token)
+          window.location.assign("http://localhost:3000/Home")
+        })
     }
 }
 //login
@@ -22,6 +25,7 @@ export const LoginApi = (data) => {
            else{
                sessionStorage.setItem("token",res.data.token)
                window.location.reload()
+             
            }
         })
     }

@@ -11,29 +11,31 @@ import {
   MDBInput,
 } from "mdbreact";
 
-//import components
-import { Link } from "react-router-dom";
-import Navbar from "../../components/Navbar";
-import HorizntalCard from "../../components/HorizentalCard";
-import SmallCard from "../../components/SmallCard";
-//import css
 
+//import css
+import "../../assests/css/BrowseAllEvents.css"
 //impoert APi
 import { getEventsAPi } from "../../api/apiEvents";
 
 import { getCategorieAPi, getTypeAPi } from "../../api/Categorie&typeaApi";
+import {getUsersApi} from "../../api/apiUsers"
+//components
 import Filter from "./filter";
+import HorizntalCard from "../../components/HorizentalCard";
+
 const BrowseAllEvents = () => {
   const [state, setState] = useState({
     prevPage: 0,
     nextPage: 5,
     itemPerPage: 5,
   });
+  //get event
   const eventState = useSelector((state) => state.eventState);
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getEventsAPi());
   }, [dispatch]);
+  //pagnation
   const handleclick = (e) => {
     const { value } = e.target;
     console.log(value);
@@ -88,22 +90,38 @@ const BrowseAllEvents = () => {
         stateFilter.categorieFilter !== "search by Categorie"
         ? (el) => el.categorie === stateFilter.categorieFilter
         : (el) => el
+    ).filter(
+      stateFilter.dateFilter !== "" 
+        ? (el) => el.date === stateFilter.dateFilter
+        : (el) => el
+    ).filter(
+      stateFilter.timeFilter !== "" 
+        ? (el) => el.time === stateFilter.timeFilter
+        : (el) => el
     )
     .filter(
       stateFilter.payementFilter !== "" && stateFilter.payementFilter !== "all"
         ? (el) => el.payement === stateFilter.payementFilter
         : (el) => el
     );
+
+    //get users
+
+    const getusersState = useSelector((state) => state.getusersState);
+  
+  useEffect(() => {
+    dispatch(getUsersApi());
+  }, []);
   return (
     <div>
-      <Navbar />
+     
       <MDBRow>
-        <MDBCol size="3.5" style={{ backgroundColor: "#2196f3" }}>
+        <MDBCol md="3" className="filterBrowseAllEvnets"  style={{ backgroundColor: "#f5f5f5" }}>
           <div className="block-example border-right border-light h-100 w-100 p-3  ">
             <Filter handlechangeFilter={handlechangeFilter} />
           </div>
         </MDBCol>
-        <MDBCol>
+        <MDBCol md="8"  style={{marginTop:"5%"}}>
           <h2 className="h1-responsive font-weight-bold text-center my-5">
             Find Your Event
           </h2>
@@ -119,6 +137,7 @@ const BrowseAllEvents = () => {
           {FiltredData.slice(state.prevPage, state.nextPage).map((el, i) => (
             <HorizntalCard
               DataHorizentalCard={el}
+              DataHorizentalCard2={getusersState}
               index={i}
               number={state.number}
             />
@@ -126,13 +145,9 @@ const BrowseAllEvents = () => {
         </MDBCol>
       </MDBRow>
       <MDBRow>
-        <MDBCol>
-          <MDBPagination className="mb-5 float-right" color="blue">
-            <MDBPageItem disabled>
-              <MDBPageNav aria-label="Previous">
-                <span aria-hidden="true">Previous</span>
-              </MDBPageNav>
-            </MDBPageItem>
+        <MDBCol style={{marginLeft:"55%",marginTop:"2%"}}>
+          <MDBPagination className="mb-5  " color="blue">
+           
 
             {eventState
               .slice(0, Math.ceil(FiltredData.length / state.itemPerPage))
@@ -148,11 +163,7 @@ const BrowseAllEvents = () => {
                 </MDBPageItem>
               ))}
 
-            <MDBPageItem>
-              <MDBPageNav aria-label="Previous">
-                <span aria-hidden="true">Next</span>
-              </MDBPageNav>
-            </MDBPageItem>
+            
           </MDBPagination>
         </MDBCol>
       </MDBRow>

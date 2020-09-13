@@ -3,7 +3,7 @@
 .SectionCommingSoon{
    
     height:80vh;
-    margin-top:5%;
+    margin-top:8%;
     margin-bottom: 10%;
     
     
@@ -11,8 +11,8 @@
 
 #titleSEctionCommingSoon{
   
-    margin-left:10%;
-  
+    margin-left:5%;
+  margin-top:5%;
     color:#ffc93c;
     font-family: 'Teko', sans-serif;
         text-transform: uppercase;

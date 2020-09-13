@@ -33,6 +33,7 @@ function handlechange(e) {
   }
 function submit(){
     dispatch(LoginApi(stateLogin))
+    
 }  
 
 
@@ -40,7 +41,7 @@ function submit(){
       <MDBContainer>
         <MDBBtn color="light-blue lighten-1" onClick={toggle(14)}>Sign-In</MDBBtn>
         <MDBModal isOpen={state.modal14} toggle={toggle(14)} centered>
-          <MDBModalHeader toggle={toggle(14)}>MDBModal title</MDBModalHeader>
+          <MDBModalHeader toggle={toggle(14)}>Sign-In</MDBModalHeader>
           <MDBModalBody>
          
       
@@ -88,7 +89,7 @@ function submit(){
                   Sign in
                 </MDBBtn>
               </div>
-              <p className="font-small dark-grey-text text-right d-flex justify-content-center mb-3 pt-2">
+              {/* <p className="font-small dark-grey-text text-right d-flex justify-content-center mb-3 pt-2">
 
                 or Sign in with:
               </p>
@@ -117,9 +118,9 @@ function submit(){
                 >
                   <MDBIcon fab icon="google-plus-g" className="blue-text" />
                 </MDBBtn>
-              </div>
+              </div> */}
             </MDBCardBody>
-            <MDBModalFooter className="mx-5 pt-3 mb-1">
+            {/* <MDBModalFooter className="mx-5 pt-3 mb-1">
               <p className="font-small grey-text d-flex justify-content-end">
                 Not a member?
                 <a href="#!" className="blue-text ml-1">
@@ -127,15 +128,12 @@ function submit(){
                   Sign Up
                 </a>
               </p>
-            </MDBModalFooter>
+            </MDBModalFooter> */}
           </MDBCard>
         
    
           </MDBModalBody>
-          <MDBModalFooter>
-            <MDBBtn color="secondary" onClick={toggle(14)}>Close</MDBBtn>
-            <MDBBtn color="primary">Save changes</MDBBtn>
-          </MDBModalFooter>
+         
         </MDBModal>
       </MDBContainer>
     );

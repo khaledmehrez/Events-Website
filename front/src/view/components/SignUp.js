@@ -157,13 +157,13 @@ const SignUp = () => {
             <div>
               <p>Are you</p>
               <MDBRow>
-                <MDBCol>
+                <MDBCol style={{marginLeft:"10%"}}>
                   <MDBAnimation type="slideInRight">
-                    <p>a company</p>
+                    <p>Company</p>
                     <img
                       className="img-fluid"
-                      width="250vw"
-                      height="5vh"
+                      width="400px"
+                     
                       alt=""
                       title="company"
                       name="type"
@@ -177,10 +177,10 @@ const SignUp = () => {
                 </MDBCol>
                 <MDBCol>
                   <MDBAnimation type="slideInRight">
-                    <p>a person</p>
+                    <p>Person</p>
                     <img
                       className="img-fluid"
-                      width="250vw"
+                      width="300px"
                       alt=""
                       title="person"
                       name="type"

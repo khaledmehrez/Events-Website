@@ -40,11 +40,11 @@ console.log(date)
 
       <div className="SectionCommingSoon">
        <MDBAnimation type="slideInLeft" duration="800ms" reveal>
-        <h1 id="titleSEctionCommingSoon">events this day</h1>
+       
       </MDBAnimation>
       <MDBContainer  >
       <MDBCard >
-      
+      <h1 id="titleSEctionCommingSoon">events this day</h1>
      
        <div className="SmallCardContainer containerCardCommingSoon">
     

@@ -2,12 +2,13 @@ import React, { Component,useState } from "react";
 import { MDBNavbar, MDBNavbarBrand, MDBNavbarNav, MDBNavItem, MDBNavLink, MDBNavbarToggler, MDBCollapse, MDBDropdown,
 MDBDropdownToggle, MDBDropdownMenu, MDBDropdownItem, MDBIcon, MDBContainer, MDBBtn } from "mdbreact";
 import {  Link, BrowserRouter } from 'react-router-dom';
+import { useLocation } from 'react-router-dom'
 import { useSelector } from "react-redux";
 import SignIn from "../view/components/Sign-In";
 import SignUp from "../view/components/SignUp";
 //import picture
 import logo from "../assests/picture/logo.png"
-const Navbar=()=>  {
+const Navbar=(props)=>  {
   
   //toggle
     const [state,setState]=useState({
@@ -29,10 +30,21 @@ const deconection=()=>{
 
 
 const { isOpen } = state;
+let location = useLocation();
+
+const URL=location.pathname
+
+if(URL!=="/SignUp"){
   return (
       
     
-      <MDBNavbar color="grey lighten-4"   expand="md" scrolling style={{height:"10vh"}} >
+      <MDBNavbar  color="grey lighten-4"
+          
+          expand="md"
+          fixed="top"
+          scrolling
+         transparent={URL==="/Home" && props.parametre!==false?true:false}
+          style={{height:"10vh"}} >
         <MDBNavbarBrand>
         <span>
               <img src={logo}  alt="" width="80px" height="70px" />
@@ -52,7 +64,14 @@ const { isOpen } = state;
            
             {userState.role!==undefined?
             <MDBNavbarNav right>
-            <MDBNavItem>
+              <MDBNavItem>
+              {userState.role === "professionel" ? (
+                <Link to="/CreateEvents">
+                  <MDBBtn gradient="peach">Create New Event</MDBBtn>
+                </Link>
+              ) : null}
+              </MDBNavItem>
+            <MDBNavItem style={{marginTop:"10px"}}>
               <MDBDropdown>
                 <MDBDropdownToggle nav caret>
                   <MDBIcon icon="user" />
@@ -65,7 +84,7 @@ const { isOpen } = state;
                   <MDBDropdownItem >Profile</MDBDropdownItem>
                   </Link>
                  <Link to="/MyEvents"> <MDBDropdownItem >My Events</MDBDropdownItem></Link>
-                 <MDBDropdownItem onClick={deconection}>Deconection</MDBDropdownItem>
+                 <MDBDropdownItem onClick={deconection}>Log-Out</MDBDropdownItem>
                  
                 </MDBDropdownMenu>
               </MDBDropdown>
@@ -86,8 +105,13 @@ const { isOpen } = state;
         </MDBCollapse>
       </MDBNavbar>
       
+      
    
     );
+        }
+        
+     else
+     return(<p></p>)   
   }
 
 

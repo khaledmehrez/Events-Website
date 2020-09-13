@@ -53,69 +53,35 @@ const IntroGuest = () => {
   return (
     <div id="apppage">
       <div>
-        <MDBNavbar
-          color="grey lighten-4"
-          
-          expand="md"
-          fixed="top"
-          scrolling
-          transparent
-          style={{height:"10vh"}}
-        >
-          <MDBContainer>
-            <MDBNavbarBrand>
-              <span>
-              <img src={logo}  className="img-fluid  hoverable" alt="" width="70px"  />
-
-              </span>
-              
-            </MDBNavbarBrand>
-            <MDBNavbarToggler onClick={handleTogglerClick} />
-            <MDBCollapse isOpen={collapsed} navbar>
-              <MDBNavbarNav left>
-                <MDBNavItem active>
-                  <MDBNavLink to="/Home">Home</MDBNavLink>
-                </MDBNavItem>
-              </MDBNavbarNav>
-              <MDBNavbarNav right>
-                <MDBNavItem>
-                  <SignIn />
-                </MDBNavItem>
-                <MDBNavItem>
-                  <Link to="/SignUp">
-                    {" "}
-                    <MDBBtn color="light-blue lighten-1">Sign-up</MDBBtn>
-                  </Link>
-                </MDBNavItem>
-              </MDBNavbarNav>
-            </MDBCollapse>
-          </MDBContainer>
-        </MDBNavbar>
+       
         {collapsed && overlay}
       </div>
       <Parallax
         blur={1}
-        bgImage={require("../../assests/picture/thisday.jpg")}
+        bgImage={require("../../assests/picture/coverHome1.jpg")}
         bgImageAlt="the cat"
-        strength={1000}
+        strength={100}
       >
         <MDBView>
-          <MDBMask className="white-text gradient" />
+         
           <MDBContainer
             style={{ height: "100vh", width: "100%" }}
             className="d-flex justify-content-center white-text align-items-center"
           >
             
                 <MDBAnimation type="fadeInLeft" delay=".3s">
-                  <h1 className="h1-responsive font-weight-bold mt-sm-5 IntroGuestTitle">
+                  <div className="introGuestContainer">
+                  <h1 className="h5-responsive font-weight-bold mt-sm-5 IntroGuestTitle">
                     Find Your Best Events
                   </h1>
                   
-                 
+                 <div className="buttonIntro">
                  <Link to="/SignUp"> <MDBBtn color="white">join us</MDBBtn> </Link>
                   <MDBBtn outline color="white">
                     Learn More
                   </MDBBtn>
+                  </div>
+                  </div>
                 </MDBAnimation>
               
           </MDBContainer>
